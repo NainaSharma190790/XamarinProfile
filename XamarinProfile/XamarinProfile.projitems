@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{BC85FDE0-14BB-4EB2-B391-E7F94C4278D2}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>XamarinProfile</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)XamarinProfile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserRegistrationView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Colors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\INetworkConnection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Renderers\CircleImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBase\SQLite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBase\XamarinProfileDataBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\IMediaPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFileNoteFoundException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaStorageOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\BaseModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetailsModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\IBusinessBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\ServiceHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\IPicture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Renderers\ButtonTextAlignment.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Interface\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DataBase\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Renderers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Media\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Service\" />
+  </ItemGroup>
+</Project>
