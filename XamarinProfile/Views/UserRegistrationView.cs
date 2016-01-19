@@ -6,14 +6,14 @@ namespace XamarinProfile
 {
 	public class UserRegistrationView : ContentPage
 	{
-		public StackLayout stack_Popup,mainLayout,stack_TopView ,stack_MiddleView,stack_CoverPage,stack_FirstExpert,stack_SecondExpert;
-		public RelativeLayout rltv_mainLayout;
+		public StackLayout mainLayout,stack_TopView ,stack_MiddleView,stack_CoverPage,stack_FirstExpert,stack_SecondExpert;
+
 		public ScrollView scroll_Main;
-		public ListView list_Country;
+		public Picker picker_Country;
 		public Image img_iOS,img_Android,img_Forms,img_Testcloud,img_Insights,img_Certified;
 		public CircleImage img_User;
 		public Label lbl_Expert;
-		public ButtonTextAlignment btn_Location,btn_Submit;
+		public ButtonTextAlignment btn_Submit;
 		public Entry txt_Fname,txt_Lname;
 		public int Width = App.ScreenWidth;
 		public int Height = App.ScreenHeight;
@@ -72,96 +72,62 @@ namespace XamarinProfile
 					
 			};
 
-			list_Country = new ListView
-			{ 
-				BackgroundColor=Color.White,
-				RowHeight=Width/10,
-				HorizontalOptions=LayoutOptions.Center,
-				VerticalOptions=LayoutOptions.Center,
-				TranslationY=(Height/4)/2,
-				WidthRequest=(Width/4)*3,
-				HeightRequest=(Height/4)*3,
-				ItemsSource = new string[]
-				{
-					"mono",
-					"monodroid",
-					"monotouch",
-					"monorail",
-					"monodevelop",
-					"monotone",
-					"monopoly",
-					"monomodal",
-					"mononucleosis",
-					"mono",
-					"monodroid",
-					"monotouch",
-					"monorail",
-					"monodevelop",
-					"monotone",
-					"monopoly",
-					"monomodal",
-					"mononucleosis"
-				}
-				
-			};
-
-			stack_Popup = new StackLayout
-			{ 
-				HorizontalOptions = LayoutOptions.Fill,
-				VerticalOptions=LayoutOptions.Fill,
-				BackgroundColor = Color.Gray,
-				//Opacity=0.8,
-				TranslationY=Height,
-				WidthRequest = Width,
-				HeightRequest = Height,
-				Children=
-				{
-					list_Country
-				}
-			};
-			var PoptapGestureRecognizer = new TapGestureRecognizer();
-			PoptapGestureRecognizer.Tapped += (s, e) =>
-			{
-				var eAndN = new Tuple<Easing, string>[]
-				{
-					new Tuple<Easing, string> (Easing.Linear, "Linear") 
-				};
-				double w = Width;
-				double h = Height;
-				var newPos = new Rectangle(0, h,w,h);
-				var eAndName = eAndN[iClicks];
-				var easing = eAndName.Item1;
-				stack_Popup.LayoutTo(newPos, 80, easing);
-				iClicks %= eAndN.Length;
-			};
-			stack_Popup.GestureRecognizers.Add(PoptapGestureRecognizer);
-
-		
-			btn_Location= new ButtonTextAlignment
+			picker_Country = new Picker
 			{
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
-				Text="Location",
-				FontSize=17,
+				Title="Location",
 				HeightRequest=Width/10,
-				TextColor=Color.Black,
 				BackgroundColor=Colors.Blue.ToFormsColor()
-			};
 
-			btn_Location.Clicked += (object sender, EventArgs e) => 
-			{				
-				var eAndN = new Tuple<Easing, string>[]
-				{
-					new Tuple<Easing, string> (Easing.Linear, "Linear") 
-				};
-				double w = Width;
-				double h = Height;
-				var newPos = new Rectangle(0, -h,w,h);
-				var eAndName = eAndN[iClicks];
-				var easing = eAndName.Item1;
-				stack_Popup.LayoutTo(newPos, 80, easing);
-				iClicks %= eAndN.Length;
 			};
+			picker_Country.Items.Add("Afghanistan");
+			picker_Country.Items.Add("Albania");
+			picker_Country.Items.Add("Algeria");
+			picker_Country.Items.Add("Andorra");
+			picker_Country.Items.Add("Angola");
+			picker_Country.Items.Add("Antigua and Barbuda");
+			picker_Country.Items.Add("Argentina");
+			picker_Country.Items.Add("Armenia");
+			picker_Country.Items.Add("Aruba");
+			picker_Country.Items.Add("Australia");
+			picker_Country.Items.Add("Austria");
+			picker_Country.Items.Add("Azerbaijan");
+
+			picker_Country.Items.Add("Bahamas, The");
+			picker_Country.Items.Add("Bahrain");
+			picker_Country.Items.Add("Bangladesh");
+			picker_Country.Items.Add("Barbados");
+			picker_Country.Items.Add("Belarus");
+			picker_Country.Items.Add("Belgium");
+			picker_Country.Items.Add("Belize");
+			picker_Country.Items.Add("Benin");
+			picker_Country.Items.Add("Bhutan");
+			picker_Country.Items.Add("Bolivia");
+			picker_Country.Items.Add("Bosnia and Herzegovina");
+			picker_Country.Items.Add("Botswana");
+			picker_Country.Items.Add("Brazil");
+			picker_Country.Items.Add("Brunei ");
+			picker_Country.Items.Add("Algeria");
+			picker_Country.Items.Add("Bulgaria");
+			picker_Country.Items.Add("Burkina Faso");
+			picker_Country.Items.Add("Burma");
+			picker_Country.Items.Add("Burundi");
+
+			picker_Country.Items.Add("Denmark");
+			picker_Country.Items.Add("Djibouti");
+			picker_Country.Items.Add("Dominica");
+			picker_Country.Items.Add("Dominican Republic");
+
+			picker_Country.Items.Add("Fiji");
+			picker_Country.Items.Add("Finland");
+			picker_Country.Items.Add("France");
+
+
+
+			picker_Country.SelectedIndex = 0;
+		
+
 			btn_Submit= new ButtonTextAlignment
 			{
 				WidthRequest = Width/2,
@@ -196,7 +162,7 @@ namespace XamarinProfile
 				Spacing=Height/40,
 				Children=
 				{
-					txt_Fname,txt_Lname,btn_Location,lbl_Expert
+					txt_Fname,txt_Lname,picker_Country,lbl_Expert
 
 
 				}
@@ -418,18 +384,9 @@ namespace XamarinProfile
 					stack_TopView,scroll_Main
 				}
 			};
-			 rltv_mainLayout = new RelativeLayout
-			{
-				HorizontalOptions = LayoutOptions.Fill,
-				VerticalOptions=LayoutOptions.Fill,
-				WidthRequest=Width,
-				HeightRequest=Height,
-			};
-
-			rltv_mainLayout.Children.Add(mainLayout,Constraint.Constant(0),Constraint.Constant(0), Constraint.Constant(Width), Constraint.Constant(Height));
-			rltv_mainLayout.Children.Add(stack_Popup, Constraint.Constant(0),Constraint.Constant(0), Constraint.Constant(Width), Constraint.Constant(Height));
+			
 		
-			this.Content = rltv_mainLayout;
+			this.Content = mainLayout;
 		}
 	}
 }
