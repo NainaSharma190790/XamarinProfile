@@ -12,8 +12,9 @@ namespace XamarinProfile.Droid
 {
 	public class ButtonTextAlignmentRenderer:ButtonRenderer
 	{
-		public override void OnElementChanged(ElementChangedEventArgs<Button> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
 		{
+			
 			base.OnElementChanged(e);
 			if (Control != null)
 			{
