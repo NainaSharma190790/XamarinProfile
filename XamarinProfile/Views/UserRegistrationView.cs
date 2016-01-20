@@ -9,12 +9,12 @@ namespace XamarinProfile
 		public StackLayout mainLayout,stack_TopView ,stack_MiddleView,stack_CoverPage,stack_FirstExpert,stack_SecondExpert;
 
 		public ScrollView scroll_Main;
-		public Picker picker_Country;
+		public CustomPicker picker_Country;
 		public Image img_iOS,img_Android,img_Forms,img_Testcloud,img_Insights,img_Certified;
 		public CircleImage img_User;
 		public Label lbl_Expert;
 		public ButtonTextAlignment btn_Submit;
-		public Entry txt_Fname,txt_Lname;
+		public EditText txt_Fname,txt_Lname;
 		public int Width = App.ScreenWidth;
 		public int Height = App.ScreenHeight;
 		public int iClicks = 0;
@@ -52,7 +52,7 @@ namespace XamarinProfile
 			};
 			img_User.GestureRecognizers.Add(ProfilePictureGestureRecognizer);
 
-			txt_Fname = new Entry
+			txt_Fname = new EditText
 			{
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
@@ -61,7 +61,7 @@ namespace XamarinProfile
 				BackgroundColor=Colors.Blue.ToFormsColor(),
 				HeightRequest=Width/10
 			};
-			txt_Lname = new Entry
+			txt_Lname = new EditText
 			{
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
@@ -72,7 +72,7 @@ namespace XamarinProfile
 					
 			};
 
-			picker_Country = new Picker
+			picker_Country = new CustomPicker
 			{
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
@@ -108,25 +108,107 @@ namespace XamarinProfile
 			picker_Country.Items.Add("Botswana");
 			picker_Country.Items.Add("Brazil");
 			picker_Country.Items.Add("Brunei ");
-			picker_Country.Items.Add("Algeria");
 			picker_Country.Items.Add("Bulgaria");
 			picker_Country.Items.Add("Burkina Faso");
 			picker_Country.Items.Add("Burma");
 			picker_Country.Items.Add("Burundi");
+
+			picker_Country.Items.Add("Cambodia");
+			picker_Country.Items.Add("Cameroon");
+			picker_Country.Items.Add("Canada");
+			picker_Country.Items.Add("Cape Verde");
+			picker_Country.Items.Add("Central African Republic");
+			picker_Country.Items.Add("Chad");
+			picker_Country.Items.Add("Chile");
+			picker_Country.Items.Add("China");
+			picker_Country.Items.Add("Colombia");
+			picker_Country.Items.Add("Comoros");
+			picker_Country.Items.Add("Congo, Democratic Republic of the");
+			picker_Country.Items.Add("Congo, Republic of the");
+			picker_Country.Items.Add("Costa Rica");
+			picker_Country.Items.Add("Cote d'Ivoire ");
+			picker_Country.Items.Add("Croatia");
+			picker_Country.Items.Add("Cuba");
+			picker_Country.Items.Add("Curacao");
+			picker_Country.Items.Add("Cyprus");
+			picker_Country.Items.Add("Czech Republic");
 
 			picker_Country.Items.Add("Denmark");
 			picker_Country.Items.Add("Djibouti");
 			picker_Country.Items.Add("Dominica");
 			picker_Country.Items.Add("Dominican Republic");
 
+			picker_Country.Items.Add("East Timor");
+			picker_Country.Items.Add("Ecuador");
+			picker_Country.Items.Add("Egypt");
+			picker_Country.Items.Add("El Salvador");
+			picker_Country.Items.Add("Equatorial Guinea");
+			picker_Country.Items.Add("Eritrea");
+			picker_Country.Items.Add("Estonia");
+			picker_Country.Items.Add("Ethiopia");
+
 			picker_Country.Items.Add("Fiji");
 			picker_Country.Items.Add("Finland");
 			picker_Country.Items.Add("Fiji");
 
+			picker_Country.Items.Add("Gabon");
+			picker_Country.Items.Add("Gambia");
+			picker_Country.Items.Add("Georgia");
+			picker_Country.Items.Add("Germany");
+			picker_Country.Items.Add("Ghana");
+			picker_Country.Items.Add("Greece");
+			picker_Country.Items.Add("Grenada");
+			picker_Country.Items.Add("Guatemala");
+			picker_Country.Items.Add("Guinea");
+			picker_Country.Items.Add("Guinea-Bissau");
+			picker_Country.Items.Add("Guyana");
 
+			picker_Country.Items.Add("Haiti");
+			picker_Country.Items.Add("Holy See");
+			picker_Country.Items.Add("Honduras");
+			picker_Country.Items.Add("Hong Kong");
+			picker_Country.Items.Add("Hungary");
+
+			picker_Country.Items.Add("Iceland");
+			picker_Country.Items.Add("India");
+			picker_Country.Items.Add("Indonesia");
+			picker_Country.Items.Add("Iran");
+			picker_Country.Items.Add("Iraq");
+			picker_Country.Items.Add("Ireland");
+			picker_Country.Items.Add("Israel");
+			picker_Country.Items.Add("Italy");
+
+			picker_Country.Items.Add("Jamaica");
+			picker_Country.Items.Add("Japan");
+			picker_Country.Items.Add("Jordan");
+
+			picker_Country.Items.Add("Oman");
+
+			picker_Country.Items.Add("Qatar");
+
+			picker_Country.Items.Add("Romania");
+			picker_Country.Items.Add("Russia");
+			picker_Country.Items.Add("Rwanda");
+			picker_Country.Items.Add("Uganda");
+			picker_Country.Items.Add("Ukraine");
+			picker_Country.Items.Add("United Arab Emirates");
+			picker_Country.Items.Add("United Kingdom");
+			picker_Country.Items.Add("Uruguay");
+			picker_Country.Items.Add("Uzbekistan");
+
+			picker_Country.Items.Add("Vanuatu");
+			picker_Country.Items.Add("Venezuela");
+			picker_Country.Items.Add("Vietnam");
+
+			picker_Country.Items.Add("Yemen");
+
+			picker_Country.Items.Add("Zambia");
+			picker_Country.Items.Add("Zimbabwe");
 
 			picker_Country.SelectedIndex = 0;
-		
+
+
+
 
 			btn_Submit= new ButtonTextAlignment
 			{
@@ -158,7 +240,7 @@ namespace XamarinProfile
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions=LayoutOptions.StartAndExpand,
 				Padding= new Thickness(Width/4,Height/40,Width/4,0),
-				//BackgroundColor=Color.Aqua,
+				//BackgroundColor=Color.Pink,
 				Spacing=Height/40,
 				Children=
 				{
@@ -336,7 +418,7 @@ namespace XamarinProfile
 				HorizontalOptions=LayoutOptions.Center,
 				VerticalOptions=LayoutOptions.StartAndExpand,
 				Orientation=StackOrientation.Horizontal,
-				//BackgroundColor=Color.Red,
+				//BackgroundColor=Color.Yellow,
 				Spacing=Height/40,
 				Children=
 				{
@@ -348,6 +430,7 @@ namespace XamarinProfile
 				HorizontalOptions=LayoutOptions.Center,
 				VerticalOptions=LayoutOptions.StartAndExpand,
 				Orientation=StackOrientation.Horizontal,
+				//BackgroundColor=Color.Red,
 				Spacing=Height/40,
 				Children=
 				{
@@ -358,6 +441,7 @@ namespace XamarinProfile
 			{
 				HorizontalOptions = LayoutOptions.StartAndExpand,
 				VerticalOptions=LayoutOptions.Fill,
+				//BackgroundColor=Color.Aqua,
 				Spacing=Width/20,
 				Children=
 				{
@@ -365,12 +449,12 @@ namespace XamarinProfile
 				}
 				};
 			
-			scroll_Main = new ScrollView 
-			{
-				HorizontalOptions = LayoutOptions.FillAndExpand,	
-				VerticalOptions=LayoutOptions.Start,
-			};
-			scroll_Main.Content=stack_MainLayout;
+//			scroll_Main = new ScrollView 
+//			{
+//				HorizontalOptions = LayoutOptions.FillAndExpand,	
+//				VerticalOptions=LayoutOptions.Start,
+//			};
+//			scroll_Main.Content=stack_MainLayout;
 
 			 mainLayout = new StackLayout 
 			{ 
@@ -381,7 +465,7 @@ namespace XamarinProfile
 				HeightRequest=Height,
 				Children = 
 				{
-					stack_TopView,scroll_Main
+					stack_TopView,stack_MainLayout
 				}
 			};
 			

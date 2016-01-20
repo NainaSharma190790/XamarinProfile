@@ -20,6 +20,8 @@ namespace XamarinProfile.Droid
 			{
 				Control.Gravity = GravityFlags.Left;
 				Control.SetPadding (0, 15, 0, 0);
+				Control.SetBackgroundResource(Resource.Drawable.EditText);
+
 			}
 		}
 	}

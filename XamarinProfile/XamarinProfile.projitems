@@ -28,6 +28,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\IPicture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\ButtonTextAlignment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Renderers\EditText.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Renderers\CustomPicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
