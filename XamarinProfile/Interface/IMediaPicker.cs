@@ -1,8 +1,9 @@
-﻿namespace XLabs.Platform.Services.Media
-{
-	using System;
-	using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using XLabs.Platform.Services.Media;
 
+namespace XamarinProfile
+{
 	/// <summary>
 	/// Interface IMediaPicker
 	/// </summary>

@@ -97,6 +97,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="ExifLib">
+      <HintPath>..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Core">
+      <HintPath>..\packages\XLabs.Core.2.0.5782\lib\Xamarin.iOS10\XLabs.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -114,6 +120,13 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\CircleImageRenderer.cs" />
     <Compile Include="Renderers\ButtonTextAlignmentRenderer.cs" />
+    <Compile Include="Renderers\CustomPickerRenderer.cs" />
+    <Compile Include="Renderers\EditTextRenderer.cs" />
+    <Compile Include="Media\MediaPicker.cs" />
+    <Compile Include="Media\MediaPickerController.cs" />
+    <Compile Include="Media\MediaPickerDelegate.cs" />
+    <Compile Include="Media\MediaPickerPopoverDelegate.cs" />
+    <Compile Include="Extension\NSDataStream.cs" />
   </ItemGroup>
   <Import Project="..\XamarinProfile\XamarinProfile.projitems" Label="Shared" Condition="Exists('..\XamarinProfile\XamarinProfile.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
@@ -128,5 +141,9 @@
     <BundleResource Include="Resources\Insight.png" />
     <BundleResource Include="Resources\iOS.png" />
     <BundleResource Include="Resources\TestCloud.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Media\" />
+    <Folder Include="Extension\" />
   </ItemGroup>
 </Project>

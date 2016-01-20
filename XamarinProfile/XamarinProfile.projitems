@@ -16,20 +16,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\CircleImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataBase\SQLite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataBase\XamarinProfileDataBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Media\IMediaPicker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFile.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFileNoteFoundException.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaStorageOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetailsModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\IBusinessBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\ServiceHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interface\IPicture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\ButtonTextAlignment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\EditText.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\CustomPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CameraViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaStorageOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\IMediaPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFileNoteFoundException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
@@ -40,5 +41,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Renderers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Media\" />
     <Folder Include="$(MSBuildThisFileDirectory)Service\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModel\" />
   </ItemGroup>
 </Project>

@@ -19,9 +19,18 @@ namespace XamarinProfile
 		public int Height = App.ScreenHeight;
 		public int iClicks = 0;
 
+		public CameraViewModel ViewModel
+		{
+			get
+			{
+				return BindingContext as CameraViewModel;
+			}
+		}
 
 		public UserRegistrationView ()
 		{
+			BindingContext = new CameraViewModel();
+
 			stack_CoverPage = new StackLayout
 			{
 				WidthRequest=Width,
@@ -45,13 +54,13 @@ namespace XamarinProfile
 				Command = new Command (() => {
 					var result = DisplayActionSheet ("Pick a picture from:", "Cancel", null, "Gallery", "Camera");
 					//CREATE LOGIC
-					if (result.Equals ("Gallery")) {img_User.SetBinding(TapGestureRecognizer.CommandProperty,"SelectPictureCommand");}
+					if (result.Equals ("Gallery")) {img_User.SetBinding(Image.SourceProperty,"SelectPictureCommand");}
 					else if(result.Equals ("Camera")){img_User.SetBinding(TapGestureRecognizer.CommandProperty,"TakePictureCommand");}
 				}),
 				NumberOfTapsRequired = 1
 			};
 			img_User.GestureRecognizers.Add(ProfilePictureGestureRecognizer);
-
+			//img_User.SetBinding(Image.SourceProperty, "SelectPictureCommand");
 			txt_Fname = new EditText
 			{
 				WidthRequest = Width,

@@ -17,6 +17,7 @@ namespace XamarinProfile.iOS
 			{
 				Control.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 				Control.ContentEdgeInsets = new UIEdgeInsets(0, 10, 0, 10);
+				Control.Layer.CornerRadius = 0f;
 			}
 		}
 	}
