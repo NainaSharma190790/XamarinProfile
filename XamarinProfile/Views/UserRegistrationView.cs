@@ -51,11 +51,13 @@ namespace XamarinProfile
 			var ProfilePictureGestureRecognizer = new  TapGestureRecognizer 
 			{
 				//ViewModel.SelectPictureCommand.Execute(null);
-				Command = new Command (() => {
-					var result = DisplayActionSheet ("Pick a picture from:", "Cancel", null, "Gallery", "Camera");
-					//CREATE LOGIC
-					if (result.Equals ("Gallery")) {img_User.SetBinding(Image.SourceProperty,"SelectPictureCommand");}
-					else if(result.Equals ("Camera")){img_User.SetBinding(TapGestureRecognizer.CommandProperty,"TakePictureCommand");}
+				Command = new Command (() => 
+					{
+						ViewModel.SelectPictureCommand.Execute(null);
+
+
+
+
 				}),
 				NumberOfTapsRequired = 1
 			};

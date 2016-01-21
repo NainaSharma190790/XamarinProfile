@@ -25,12 +25,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\EditText.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\CustomPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CameraViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media\MediaStorageOptions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Media\IMediaPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media\MediaExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFileNoteFoundException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\IMediaPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\TaskUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />

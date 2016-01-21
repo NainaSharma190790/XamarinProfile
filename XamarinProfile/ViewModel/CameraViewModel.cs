@@ -1,8 +1,13 @@
 ﻿using System;
-using Xamarin.Forms;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Text;
 using System.Threading.Tasks;
-using XLabs.Ioc;
+using Xamarin.Forms;
+using System.Linq;
 using XLabs.Platform.Services.Media;
+using XLabs.Ioc;
 
 namespace XamarinProfile
 {
@@ -30,7 +35,7 @@ namespace XamarinProfile
 		/// <summary>
 		/// The image source.
 		/// </summary>
-		private ImageSource _imageSource = "rzee.png";
+		private ImageSource _imageSource = "iOS.png";
 
 
 		/// <summary>
