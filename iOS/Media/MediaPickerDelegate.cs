@@ -363,6 +363,10 @@ namespace XLabs.Platform.Services.Media
 			}
 
 			Action<bool> dispose = null;
+
+
+
+
 			if (_source != UIImagePickerControllerSourceType.Camera)
 			{
 				dispose = d => File.Delete(path);

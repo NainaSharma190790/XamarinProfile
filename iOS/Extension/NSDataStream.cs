@@ -8,6 +8,7 @@ namespace XLabs.Platform.Extensions
 	///     Class NsDataStream.
 	/// </summary>
 	internal unsafe class NsDataStream : UnmanagedMemoryStream
+
 	{
 		/// <summary>
 		///     The _data
