@@ -122,6 +122,8 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="Resources\bg.png" />
+    <None Include="Resources\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -151,9 +153,5 @@
     <BundleResource Include="Resources\TestCloud.png" />
     <BundleResource Include="Resources\camera.png" />
     <BundleResource Include="Resources\gallery.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Media\" />
-    <Folder Include="Extension\" />
   </ItemGroup>
 </Project>
