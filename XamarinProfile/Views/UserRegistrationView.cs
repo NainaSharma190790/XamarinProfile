@@ -6,11 +6,12 @@ namespace XamarinProfile
 {
 	public class UserRegistrationView : ContentPage
 	{
+		#region All Fields
 		public StackLayout stack_pop,stack_popup,mainLayout,stack_TopView ,stack_MiddleView,stack_CoverPage,stack_FirstExpert,stack_SecondExpert;
 		public RelativeLayout rltv_main;
 		public ScrollView scroll_Main;
 		public CustomPicker picker_Country;
-		public Image img_iOS,img_Android,img_Forms,img_Testcloud,img_Insights,img_Certified;
+		public Image image_bg,img_iOS,img_Android,img_Forms,img_Testcloud,img_Insights,img_Certified;
 		public CircleImage img_User;
 		public Label lbl_Expert;
 		public Button btn_camera, btn_gallery;
@@ -19,6 +20,7 @@ namespace XamarinProfile
 		public int Width = App.ScreenWidth;
 		public int Height = App.ScreenHeight;
 		public int iClicks = 0;
+		#endregion
 
 		public CameraViewModel ViewModel
 		{
@@ -53,23 +55,38 @@ namespace XamarinProfile
 				WidthRequest=Width/8,
 				HeightRequest=Height/8,
 				HorizontalOptions=LayoutOptions.Start,
+				VerticalOptions = LayoutOptions.Center,
+
 			};
+
+			btn_camera.Clicked  += (s, e) =>
+			{
+				ViewModel.TakePictureCommand.Execute(null);					
+			};
+
+			//btn_camera.GestureRecognizers.Add(CameraGestureRecognizer);
 			btn_gallery = new Button
 			{
 				Image="gallery.png",
 				WidthRequest=Width/8,
 				HeightRequest=Height/8,
 				HorizontalOptions=LayoutOptions.End,
+				VerticalOptions = LayoutOptions.Center,
+
 			};
+			btn_gallery.Clicked  += (s, e) =>
+			{
+				ViewModel.SelectPictureCommand.Execute(null);
+			};
+
 			stack_pop = new StackLayout
 			{
 				HeightRequest = Width / 2,
 				WidthRequest = Width / 2,
 				VerticalOptions = LayoutOptions.Center,
 				HorizontalOptions = LayoutOptions.Center,
-				BackgroundColor = Colors.Green.ToFormsColor(),
+				BackgroundColor = Color.White,
 				TranslationY=Width / 2,
-				Orientation = StackOrientation.Horizontal,
 				Opacity = 1,
 				Children = 
 				{
@@ -77,8 +94,13 @@ namespace XamarinProfile
 					{
 						VerticalOptions = LayoutOptions.Center,
 						HorizontalOptions = LayoutOptions.Center,
-
-					btn_camera, btn_gallery
+						Orientation = StackOrientation.Horizontal,
+						TranslationY=Width/6,
+						Children=
+						{
+							btn_camera, btn_gallery
+						}
+						
 					}
 				}
 			};
@@ -92,7 +114,16 @@ namespace XamarinProfile
 					stack_pop
 				}
 			};
+			image_bg = new Image
+			{ 
+				WidthRequest = Width,
+				HeightRequest = Height,
+				HorizontalOptions=LayoutOptions.FillAndExpand,
+				VerticalOptions=LayoutOptions.FillAndExpand,
+				Source="bg.png",
+				IsVisible=false
 
+			};
 			var PopUpGestureRecognizer = new  TapGestureRecognizer 
 			{
 				//ViewModel.SelectPictureCommand.Execute(null);
@@ -110,6 +141,8 @@ namespace XamarinProfile
 						var easing = eAndName.Item1;
 						stack_popup.LayoutTo(newPos, 80, easing);
 						iClicks %= eAndN.Length;
+						image_bg.IsVisible=false;
+							
 
 					}),
 				NumberOfTapsRequired = 1
@@ -133,6 +166,7 @@ namespace XamarinProfile
 						var easing = eAndName.Item1;
 						stack_popup.LayoutTo(newPos, 80, easing);
 						iClicks %= eAndN.Length;
+						image_bg.IsVisible=true;
 
 				}),
 				NumberOfTapsRequired = 1
@@ -294,9 +328,6 @@ namespace XamarinProfile
 
 			picker_Country.SelectedIndex = 0;
 
-
-
-
 			btn_Submit= new ButtonTextAlignment
 			{
 				WidthRequest = Width/2,
@@ -307,6 +338,7 @@ namespace XamarinProfile
 				TextColor=Color.Black,
 				BackgroundColor=Colors.Blue.ToFormsColor()
 			};
+
 			stack_TopView = new StackLayout
 			{
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -318,10 +350,12 @@ namespace XamarinProfile
 					stack_CoverPage,img_User
 				}
 			};
+			
 			lbl_Expert = new Label
 			{
 				Text="Expert",
 			};
+
 			stack_MiddleView = new StackLayout
 			{
 				HorizontalOptions = LayoutOptions.Center,
@@ -336,6 +370,7 @@ namespace XamarinProfile
 
 				}
 			};
+			
 			 img_iOS = new Image
 			{
 				WidthRequest=Width/7,
@@ -563,6 +598,7 @@ namespace XamarinProfile
 			};
 
 			rltv_main.Children.Add(mainLayout, Constraint.Constant(0), Constraint.Constant(0),Constraint.Constant(Width),Constraint.Constant(Height));
+			rltv_main.Children.Add(image_bg, Constraint.Constant(0), Constraint.Constant(0),Constraint.Constant(Width),Constraint.Constant(Height));
 			rltv_main.Children.Add(stack_popup, Constraint.Constant(0), Constraint.Constant(Height),Constraint.Constant(Width),Constraint.Constant(Height));
 
 			this.Content = rltv_main;

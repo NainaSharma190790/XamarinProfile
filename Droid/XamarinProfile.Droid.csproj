@@ -15,7 +15,7 @@
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>XamarinProfile.Droid</AssemblyName>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -153,5 +153,21 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\Insight.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\iOS.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\TestCloud.png" />
+    <AndroidResource Include="Resources\drawable\bg.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\bg.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bg.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\drawable-hdpi\camera.png" />
+    <BundleResource Include="Resources\drawable-hdpi\gallery.png" />
+    <BundleResource Include="Resources\drawable-xhdpi\camera.png" />
+    <BundleResource Include="Resources\drawable-xhdpi\gallery.png" />
+    <BundleResource Include="Resources\drawable-xxhdpi\camera.png" />
+    <BundleResource Include="Resources\drawable-xxhdpi\gallery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\drawable\gallery.png" />
+    <Content Include="Resources\drawable\camera.png" />
   </ItemGroup>
 </Project>
