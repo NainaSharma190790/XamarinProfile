@@ -14,8 +14,8 @@ namespace XamarinProfile
 		public Image image_bg,img_iOS,img_Android,img_Forms,img_Testcloud,img_Insights,img_Certified;
 		public CircleImage img_User;
 		public Label lbl_Expert;
-		public Button btn_camera, btn_gallery;
-		public ButtonTextAlignment btn_Submit;
+		public Image btn_camera, btn_gallery;
+		public Button btn_Submit;
 		public EditText txt_Fname,txt_Lname;
 		public int Width = App.ScreenWidth;
 		public int Height = App.ScreenHeight;
@@ -49,9 +49,9 @@ namespace XamarinProfile
 				Source="CircleImage.png",
 				TranslationY=-((Width/4)/2+10)
 			};
-			btn_camera = new Button
+			btn_camera = new Image
 			{
-				Image="camera.png",
+				Source="camera.png",
 				WidthRequest=Width/8,
 				HeightRequest=Height/8,
 				HorizontalOptions=LayoutOptions.Start,
@@ -59,25 +59,24 @@ namespace XamarinProfile
 
 			};
 
-			btn_camera.Clicked  += (s, e) =>
-			{
-				ViewModel.TakePictureCommand.Execute(null);					
-			};
+			var Cameratap = new TapGestureRecognizer(OnCameraTapped);
+			btn_camera.IsEnabled = true;
+			btn_camera.GestureRecognizers.Clear();
+			btn_camera.GestureRecognizers.Add(Cameratap);
 
-			//btn_camera.GestureRecognizers.Add(CameraGestureRecognizer);
-			btn_gallery = new Button
+			btn_gallery = new Image
 			{
-				Image="gallery.png",
+				Source="gallery.png",
 				WidthRequest=Width/8,
 				HeightRequest=Height/8,
 				HorizontalOptions=LayoutOptions.End,
 				VerticalOptions = LayoutOptions.Center,
 
 			};
-			btn_gallery.Clicked  += (s, e) =>
-			{
-				ViewModel.SelectPictureCommand.Execute(null);
-			};
+			var Gallerytap = new TapGestureRecognizer(OnGalleryTapped);
+			btn_gallery.IsEnabled = true;
+			btn_gallery.GestureRecognizers.Clear();
+			btn_gallery.GestureRecognizers.Add(Gallerytap);
 
 			stack_pop = new StackLayout
 			{
@@ -178,8 +177,8 @@ namespace XamarinProfile
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
 				Placeholder="FirstName",
-				TextColor=Color.Black,
-				BackgroundColor=Colors.Blue.ToFormsColor(),
+				TextColor=Colors.DarkGray.ToFormsColor(),
+				BackgroundColor=Color.Transparent,
 				HeightRequest=Width/10
 			};
 			txt_Lname = new EditText
@@ -187,8 +186,8 @@ namespace XamarinProfile
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
 				Placeholder="LastName",
-				TextColor=Color.Black,
-				BackgroundColor=Colors.Blue.ToFormsColor(),
+				TextColor=Colors.DarkGray.ToFormsColor(),
+				BackgroundColor=Color.Transparent,
 				HeightRequest=Width/10
 					
 			};
@@ -199,7 +198,7 @@ namespace XamarinProfile
 				HorizontalOptions = LayoutOptions.Center,
 				Title="Location",
 				HeightRequest=Width/10,
-				BackgroundColor=Colors.Blue.ToFormsColor()
+				BackgroundColor=Color.Transparent,
 
 			};
 			picker_Country.Items.Add("Afghanistan");
@@ -328,15 +327,15 @@ namespace XamarinProfile
 
 			picker_Country.SelectedIndex = 0;
 
-			btn_Submit= new ButtonTextAlignment
+			btn_Submit= new Button
 			{
 				WidthRequest = Width/2,
 				HorizontalOptions = LayoutOptions.Center,
-				HeightRequest=Width/10,			
+				HeightRequest=Width/8,			
 				Text="Submit",	
 				FontSize=17,
-				TextColor=Color.Black,
-				BackgroundColor=Colors.Blue.ToFormsColor()
+				TextColor=Color.White,
+				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 			};
 
 			stack_TopView = new StackLayout
@@ -353,7 +352,10 @@ namespace XamarinProfile
 			
 			lbl_Expert = new Label
 			{
-				Text="Expert",
+				Text="Experts",
+				FontSize=18,
+				TextColor=Colors.DarkGray.ToFormsColor(),
+				FontAttributes=FontAttributes.Bold
 			};
 
 			stack_MiddleView = new StackLayout
@@ -380,25 +382,10 @@ namespace XamarinProfile
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 				IsEnabled=false
 			};
-
-			var iOStapGestureRecognizer = new TapGestureRecognizer();
-			iOStapGestureRecognizer.Tapped += (s, e) =>
-			{
-				if(img_iOS.IsEnabled==false)
-				{
-					img_iOS.IsEnabled=true;
-					img_iOS.BackgroundColor=Colors.Blue.ToFormsColor();
-					//img_iOS.Source="Android.png";
-				}
-				else
-				{
-					img_iOS.IsEnabled=false;
-					img_iOS.BackgroundColor=Colors.DarkGray.ToFormsColor();
-					//img_iOS.Source="iOS.png";
-
-				}
-			};
-			img_iOS.GestureRecognizers.Add(iOStapGestureRecognizer);
+			var iOStap = new TapGestureRecognizer(OniOSTapped);
+			img_iOS.IsEnabled = true;
+			img_iOS.GestureRecognizers.Clear();
+			img_iOS.GestureRecognizers.Add(iOStap);
 
 			img_Certified = new Image
 			{
@@ -410,23 +397,10 @@ namespace XamarinProfile
 				IsEnabled=false
 			};
 
-			var CertifiedtapGestureRecognizer = new TapGestureRecognizer();
-			CertifiedtapGestureRecognizer.Tapped += (s, e) =>
-			{
-				if(img_Certified.IsEnabled==false)
-				{
-					img_Certified.IsEnabled=true;
-					img_Certified.BackgroundColor=Colors.Blue.ToFormsColor();
-
-				}
-				else
-				{
-					img_Certified.IsEnabled=false;
-					img_Certified.BackgroundColor=Colors.DarkGray.ToFormsColor();
-
-				}
-			};
-			img_Certified.GestureRecognizers.Add(CertifiedtapGestureRecognizer);
+			var Certifiedtap = new TapGestureRecognizer(OnCertifiedTapped);
+			img_Certified.IsEnabled = true;
+			img_Certified.GestureRecognizers.Clear();
+			img_Certified.GestureRecognizers.Add(Certifiedtap);
 
 			img_Android = new Image
 			{
@@ -437,23 +411,12 @@ namespace XamarinProfile
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 				IsEnabled=false
 			};
-			var AndroidtapGestureRecognizer = new TapGestureRecognizer();
-			AndroidtapGestureRecognizer.Tapped += (s, e) =>
-			{
-				if(img_Android.IsEnabled==false)
-				{
-					img_Android.IsEnabled=true;
-					img_Android.BackgroundColor=Colors.Blue.ToFormsColor();
 
-				}
-				else
-				{
-					img_Android.IsEnabled=false;
-					img_Android.BackgroundColor=Colors.DarkGray.ToFormsColor();
+			var Androidtap = new TapGestureRecognizer(OnAndroidTapped);
+			img_Android.IsEnabled = true;
+			img_Android.GestureRecognizers.Clear();
+			img_Android.GestureRecognizers.Add(Androidtap);
 
-				}
-			};
-			img_Android.GestureRecognizers.Add(AndroidtapGestureRecognizer);
 			img_Forms = new Image
 			{
 				WidthRequest=Width/7,
@@ -463,23 +426,12 @@ namespace XamarinProfile
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 				IsEnabled=false
 			};
-			var FormstapGestureRecognizer = new TapGestureRecognizer();
-			FormstapGestureRecognizer.Tapped += (s, e) =>
-			{
-				if(img_Forms.IsEnabled==false)
-				{
-					img_Forms.IsEnabled=true;
-					img_Forms.BackgroundColor=Colors.Blue.ToFormsColor();
 
-				}
-				else
-				{
-					img_Forms.IsEnabled=false;
-					img_Forms.BackgroundColor=Colors.DarkGray.ToFormsColor();
+			var Formstap = new TapGestureRecognizer(OnFormsTapped);
+			img_Forms.IsEnabled = true;
+			img_Forms.GestureRecognizers.Clear();
+			img_Forms.GestureRecognizers.Add(Formstap);
 
-				}
-			};
-			img_Forms.GestureRecognizers.Add(FormstapGestureRecognizer);
 
 			img_Insights = new Image
 			{
@@ -490,23 +442,12 @@ namespace XamarinProfile
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 				IsEnabled=false
 			};
-			var InsightstapGestureRecognizer = new TapGestureRecognizer();
-			InsightstapGestureRecognizer.Tapped += (s, e) =>
-			{
-				if(img_Insights.IsEnabled==false)
-				{
-					img_Insights.IsEnabled=true;
-					img_Insights.BackgroundColor=Colors.Blue.ToFormsColor();
 
-				}
-				else
-				{
-					img_Certified.IsEnabled=false;
-					img_Certified.BackgroundColor=Colors.DarkGray.ToFormsColor();
+			var Insightstap = new TapGestureRecognizer(OnInsightTapped);
+			img_Insights.IsEnabled = true;
+			img_Insights.GestureRecognizers.Clear();
+			img_Insights.GestureRecognizers.Add(Insightstap);
 
-				}
-			};
-			img_Insights.GestureRecognizers.Add(InsightstapGestureRecognizer);
 
 			img_Testcloud = new Image
 			{
@@ -517,23 +458,11 @@ namespace XamarinProfile
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 				IsEnabled=false
 			};
-			var TestcloudtapGestureRecognizer = new TapGestureRecognizer();
-			TestcloudtapGestureRecognizer.Tapped += (s, e) =>
-			{
-				if(img_Testcloud.IsEnabled==false)
-				{
-					img_Testcloud.IsEnabled=true;
-					img_Testcloud.BackgroundColor=Colors.Blue.ToFormsColor();
+			var Testcloudtap = new TapGestureRecognizer(OnTestCloudTapped);
+			img_Testcloud.IsEnabled = true;
+			img_Testcloud.GestureRecognizers.Clear();
+			img_Testcloud.GestureRecognizers.Add(Testcloudtap);
 
-				}
-				else
-				{
-					img_Testcloud.IsEnabled=false;
-					img_Testcloud.BackgroundColor=Colors.DarkGray.ToFormsColor();
-
-				}
-			};
-			img_Testcloud.GestureRecognizers.Add(TestcloudtapGestureRecognizer);
 
 			stack_FirstExpert = new StackLayout
 			{
@@ -603,6 +532,114 @@ namespace XamarinProfile
 
 			this.Content = rltv_main;
 		}
+
+		void OniOSTapped(View view, object sender)
+		{
+			if(img_iOS.IsEnabled==false)
+			{
+				img_iOS.IsEnabled=true;
+				img_iOS.BackgroundColor=Colors.Blue.ToFormsColor();
+				//img_iOS.Source="Android.png";
+			}
+			else
+			{
+				img_iOS.IsEnabled=false;
+				img_iOS.BackgroundColor=Colors.DarkGray.ToFormsColor();
+				//img_iOS.Source="iOS.png";
+
+			}
+		}
+		void OnAndroidTapped(View view, object sender)
+		{
+			if(img_Android.IsEnabled==false)
+			{
+				img_Android.IsEnabled=true;
+				img_Android.BackgroundColor=Colors.Blue.ToFormsColor();
+				//img_iOS.Source="Android.png";
+			}
+			else
+			{
+				img_Android.IsEnabled=false;
+				img_Android.BackgroundColor=Colors.DarkGray.ToFormsColor();
+				//img_iOS.Source="iOS.png";
+
+			}
+		}
+		void OnFormsTapped(View view, object sender)
+		{
+			if(img_Forms.IsEnabled==false)
+			{
+				img_Forms.IsEnabled=true;
+				img_Forms.BackgroundColor=Colors.Blue.ToFormsColor();
+				//img_iOS.Source="Android.png";
+			}
+			else
+			{
+				img_Forms.IsEnabled=false;
+				img_Forms.BackgroundColor=Colors.DarkGray.ToFormsColor();
+				//img_iOS.Source="iOS.png";
+
+			}
+		}
+		void OnInsightTapped(View view, object sender)
+		{
+			if(img_Insights.IsEnabled==false)
+			{
+				img_Insights.IsEnabled=true;
+				img_Insights.BackgroundColor=Colors.Blue.ToFormsColor();
+				//img_iOS.Source="Android.png";
+			}
+			else
+			{
+				img_Insights.IsEnabled=false;
+				img_Insights.BackgroundColor=Colors.DarkGray.ToFormsColor();
+				//img_iOS.Source="iOS.png";
+
+			}
+		}
+		void OnTestCloudTapped(View view, object sender)
+		{
+			if(img_Testcloud.IsEnabled==false)
+			{
+				img_Testcloud.IsEnabled=true;
+				img_Testcloud.BackgroundColor=Colors.Blue.ToFormsColor();
+				//img_iOS.Source="Android.png";
+			}
+			else
+			{
+				img_Testcloud.IsEnabled=false;
+				img_Testcloud.BackgroundColor=Colors.DarkGray.ToFormsColor();
+				//img_iOS.Source="iOS.png";
+
+			}
+		}
+		void OnCertifiedTapped(View view, object sender)
+		{
+			if(img_Certified.IsEnabled==false)
+			{
+				img_Certified.IsEnabled=true;
+				img_Certified.BackgroundColor=Colors.Blue.ToFormsColor();
+				//img_iOS.Source="Android.png";
+			}
+			else
+			{
+				img_Certified.IsEnabled=false;
+				img_Certified.BackgroundColor=Colors.DarkGray.ToFormsColor();
+				//img_iOS.Source="iOS.png";
+
+			}
+		}
+		void OnCameraTapped(View view, object sender)
+		{
+			ViewModel.TakePictureCommand.Execute(null);
+
+		}
+		void OnGalleryTapped(View view, object sender)
+		{
+			ViewModel.SelectPictureCommand.Execute(null);
+
+		}
+
 	}
 }
 

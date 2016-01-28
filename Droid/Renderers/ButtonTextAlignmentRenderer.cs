@@ -18,7 +18,7 @@ namespace XamarinProfile.Droid
 			base.OnElementChanged(e);
 			if (Control != null)
 			{
-				Control.Gravity = GravityFlags.Left;
+				Control.Gravity = GravityFlags.Center;
 				Control.SetPadding (0, 15, 0, 0);
 				Control.SetBackgroundResource(Resource.Drawable.EditText);
 
