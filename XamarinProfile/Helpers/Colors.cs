@@ -4,7 +4,7 @@ namespace XamarinProfile.Helpers
 {
 	public struct Color
 	{
-		public static readonly Color DarkGray = 0x2c3e50;
+		public static readonly Color DarkGray = 0x2c3e50;//R: 44 G: 62 B: 80
 		public static readonly Color Green = 0x4d9f8c;
 		public static readonly Color Blue = 0x2F91D3;
 

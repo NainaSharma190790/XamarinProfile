@@ -122,7 +122,6 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
-    <None Include="Resources\bg.png" />
     <None Include="Resources\icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -153,5 +152,6 @@
     <BundleResource Include="Resources\TestCloud.png" />
     <BundleResource Include="Resources\camera.png" />
     <BundleResource Include="Resources\gallery.png" />
+    <BundleResource Include="Resources\bg.png" />
   </ItemGroup>
 </Project>
