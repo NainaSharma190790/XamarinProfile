@@ -19,6 +19,7 @@ namespace XamarinProfile.Droid
 				Control.SetBackgroundResource(Resource.Drawable.EditText);
 				//Control.TextAlignment = Android.Views.TextAlignment.Center;
 				Control.Gravity = GravityFlags.Center;
+				//Control.HintTextColors = Color.Gray.ToAndroid ();
 
 			}
 		}

@@ -24,7 +24,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\ButtonTextAlignment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\EditText.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Renderers\CustomPicker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CameraViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media\MediaStorageOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media\MediaExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFileNoteFoundException.cs" />
@@ -32,6 +31,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Media\IMediaPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Media\MediaFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TaskUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Renderers\CustomListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\UserViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\IProgressView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindablePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CountryPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Country.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />

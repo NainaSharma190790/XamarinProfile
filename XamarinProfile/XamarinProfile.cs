@@ -12,20 +12,15 @@ namespace XamarinProfile
 
 		public App ()
 		{
-			// The root page of your application
+			Database.CreateTables<CountryPicker>();
 			MainPage = new UserRegistrationView();
 		}
-		private static XamarinProfileDataBase _database;
 
-		public static XamarinProfileDataBase DataBase
-		{
-			get
-			{
-				if (_database == null)
-					_database = new XamarinProfileDataBase();
-				return _database;
-			}
-		}
+		private static XamarinProfileDataBase _database = new XamarinProfileDataBase();
+
+		public static XamarinProfileDataBase Database { get { return _database; } }
+
+
 
 		protected override void OnStart ()
 		{

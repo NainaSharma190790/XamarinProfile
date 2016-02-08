@@ -11,7 +11,8 @@ using Android.Views;
 
 namespace XamarinProfile.Droid
 {
-	 public class CircleImageRenderer : ImageRenderer
+
+	public class CircleImageRenderer : ImageRenderer
 	{
 		/// <summary>
 		/// Called when [element changed].
@@ -21,7 +22,7 @@ namespace XamarinProfile.Droid
 		{
 			base.OnElementChanged(e);
 
-			if (e.OldElement == null && (int)Android.OS.Build.VERSION.SdkInt < 18)
+			if (e.OldElement == null && (int)Android.OS.Build.VERSION.SdkInt < 15)
 			{
 				LayerType it = new LayerType ();
 				SetLayerType(it, null);

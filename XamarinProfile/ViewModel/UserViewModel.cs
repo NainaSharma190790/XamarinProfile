@@ -8,18 +8,142 @@ using Xamarin.Forms;
 using System.Linq;
 using XLabs.Platform.Services.Media;
 using XLabs.Ioc;
+using System.Windows.Input;
+using System.Net.Http;
+using Android.Content.Res;
+using Newtonsoft.Json;
 
 namespace XamarinProfile
 {
-	public class CameraViewModel:BaseViewModel
+	public class UserViewModel:BaseViewModel
 	{
 
-		public CameraViewModel()
+		public UserViewModel()
 		{
 			Setup();
+			UserRegInfo = new UserRegistrationRequest(); //{ first_name = "Mohd", last_name = "Riyaz", email = "test@test.com", mobileno = "0987654321", password = "test123#", city = "", address = "test road, test" };
+			GetCountriesCommand.Execute(null);
+			//CountryCategories = new ObservableCollection<Country>();
+
+
+		}
+
+//		private ObservableCollection<Country> _countryCategories;
+//
+//		public ObservableCollection<Country> CountryCategories
+//		{
+//			get { return _countryCategories; }
+//			set { _countryCategories = value; OnPropertyChanged(); }
+//		}	
+		private UserRegistrationRequest _userRegInfo;
+
+		public UserRegistrationRequest UserRegInfo
+		{
+			get { return _userRegInfo; }
+			set
+			{
+				_userRegInfo = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private string _expertValue;
+
+		public string ExpertValue
+		{
+			get { return _expertValue; }
+			set { _expertValue = value; OnPropertyChanged(); }
 		}
 
 
+
+		private IList<CountryPicker> _pickerItems;
+		public IList<CountryPicker> PickerItems
+		{
+			get { return _pickerItems; }
+			set { _pickerItems = value; OnPropertyChanged(); }
+		}
+
+
+		private CountryPicker _selectedPickerItem;
+		public CountryPicker SelectedPickerItem
+		{
+			get { return _selectedPickerItem; }
+			set { _selectedPickerItem = value; OnPropertyChanged(); }
+		}
+
+		private int _selectedIndex;
+		public int SelectedIndex
+		{
+			get { return _selectedIndex; }
+			set
+			{
+				_selectedIndex = value; OnPropertyChanged();
+
+				if (SelectedIndex > 0) // Using this condition we are making sure that we selecting valid Values!
+				{
+					SelectedPickerItem = PickerItems[SelectedIndex];
+				}
+			}
+		}
+
+		public ICommand GetCountriesCommand
+		{
+			get
+			{
+				return new Command (async () =>
+					{
+						
+						await ServiceHandler.PostGetData<CountriesResponse<CountryPicker>, string> (ServiceHandler.Constant.Countries, HttpMethod.Get, null).ContinueWith (t => 
+							{
+								if (!t.IsFaulted && t.Result != null)
+								{
+									PickerItems = t.Result.PayloadData.Countries.ToList();
+
+								}
+							});
+					});
+			}
+		}
+
+
+		public ICommand RegisterUser
+		{
+			get
+			{
+				return new Command (async (args) => 
+					{	
+						UserRegInfo.experts=ExpertValue;
+						UserRegInfo.location=SelectedIndex.ToString();
+						#region Service to register a user
+						await ServiceHandler.PostGetData<UserRegistrationResponse, UserRegistrationRequest>(ServiceHandler.Constant.RegisterUser, HttpMethod.Post, UserRegInfo).ContinueWith(t =>
+							{
+								try
+							{
+								if (!t.IsFaulted && t.Result != null)
+								{
+									if (t.Result.StatusCode == "1") 
+									{
+										Console.WriteLine ("Success");
+										Navigation.PushModalAsync(new UserListView());
+									} 
+									else
+									{
+										Console.WriteLine ("Error");
+									}
+								}
+							} 
+							catch (Exception ex)
+							{
+
+							}
+						});
+						#endregion	
+					});
+				
+			}
+		}
+			
 		#region Functionality of profile picture
 
 		/// <summary>

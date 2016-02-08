@@ -16,39 +16,43 @@ namespace XamarinProfile
 		public Label lbl_Expert;
 		public Image btn_camera, btn_gallery;
 		public Button btn_Submit;
-		public EditText txt_Fname,txt_Lname;
+		public EditText txt_Name,txt_Email,txt_Password;
 		public int Width = App.ScreenWidth;
 		public int Height = App.ScreenHeight;
 		public int iClicks = 0;
+		public string ExpertsValue="";
 		#endregion
 
-		public CameraViewModel ViewModel
-		{
-			get
-			{
-				return BindingContext as CameraViewModel;
-			}
-		}
+		public UserViewModel ViewModel { get { return BindingContext as UserViewModel; } }
+
+		//public TesteViewModel Model { get { return BindingContext as TesteViewModel; } }
 
 		public UserRegistrationView ()
 		{
-			BindingContext = new CameraViewModel();
+//			if (ViewModel == null)
+//				ViewModel = new UserViewModel();
+//			BindingContext = ViewModel;
+
+			BindingContext = new UserViewModel();
 
 			stack_CoverPage = new StackLayout
 			{
 				WidthRequest=Width,
-				HeightRequest = Width/3,
+				HeightRequest = Width/4,
+				//BackgroundColor=Color.Red,
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 			
 			};
 			img_User = new CircleImage
 			{
-				HorizontalOptions = LayoutOptions.Center,
 				HeightRequest = Width/4,
-				WidthRequest = Width/4,
-				Source="CircleImage.png",
-				TranslationY=-((Width/4)/2+10)
+				HorizontalOptions = LayoutOptions.Center,
+				//BackgroundColor=Color.Yellow,
+				TranslationY=-((Width/4)/2+10),
+				Aspect=Aspect.Fill,
+				Source="img1.png",
 			};
+			//img_User.SetBinding (Image.SourceProperty, "UserRegInfo.image");
 			btn_camera = new Image
 			{
 				Source="camera.png",
@@ -172,25 +176,42 @@ namespace XamarinProfile
 			};
 			img_User.GestureRecognizers.Add(ProfilePictureGestureRecognizer);
 			//img_User.SetBinding(Image.SourceProperty, "SelectPictureCommand");
-			txt_Fname = new EditText
+			txt_Name = new EditText
 			{
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
-				Placeholder="FirstName",
+				Placeholder="FullName",
 				TextColor=Colors.DarkGray.ToFormsColor(),
 				BackgroundColor=Color.Transparent,
-				HeightRequest=Width/10
+				HeightRequest=Width/10,
 			};
-			txt_Lname = new EditText
+			txt_Name.SetBinding(Entry.TextProperty, "UserRegInfo.name");
+
+			txt_Email = new EditText
 			{
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
-				Placeholder="LastName",
+				Keyboard=Keyboard.Email,
+				Placeholder="Email",
 				TextColor=Colors.DarkGray.ToFormsColor(),
 				BackgroundColor=Color.Transparent,
 				HeightRequest=Width/10
 					
 			};
+			txt_Email.SetBinding(Entry.TextProperty, "UserRegInfo.email");
+
+			txt_Password = new EditText
+			{
+				WidthRequest = Width,
+				HorizontalOptions = LayoutOptions.Center,
+				IsPassword=true,
+				Placeholder="Password",
+				TextColor=Colors.DarkGray.ToFormsColor(),
+				BackgroundColor=Color.Transparent,
+				HeightRequest=Width/10
+
+			};
+			txt_Password.SetBinding(Entry.TextProperty, "UserRegInfo.password");
 
 			picker_Country = new CustomPicker
 			{
@@ -201,131 +222,12 @@ namespace XamarinProfile
 				BackgroundColor=Color.Transparent,
 
 			};
-			picker_Country.Items.Add("Afghanistan");
-			picker_Country.Items.Add("Albania");
-			picker_Country.Items.Add("Algeria");
-			picker_Country.Items.Add("Andorra");
-			picker_Country.Items.Add("Angola");
-			picker_Country.Items.Add("Antigua and Barbuda");
-			picker_Country.Items.Add("Argentina");
-			picker_Country.Items.Add("Armenia");
-			picker_Country.Items.Add("Aruba");
-			picker_Country.Items.Add("Australia");
-			picker_Country.Items.Add("Austria");
-			picker_Country.Items.Add("Azerbaijan");
+				picker_Country.SelectedIndexChanged+=((sender, e) => 
+				{
+					ViewModel.SelectedIndex=picker_Country.SelectedIndex;
+					
+				});
 
-			picker_Country.Items.Add("Bahamas, The");
-			picker_Country.Items.Add("Bahrain");
-			picker_Country.Items.Add("Bangladesh");
-			picker_Country.Items.Add("Barbados");
-			picker_Country.Items.Add("Belarus");
-			picker_Country.Items.Add("Belgium");
-			picker_Country.Items.Add("Belize");
-			picker_Country.Items.Add("Benin");
-			picker_Country.Items.Add("Bhutan");
-			picker_Country.Items.Add("Bolivia");
-			picker_Country.Items.Add("Bosnia and Herzegovina");
-			picker_Country.Items.Add("Botswana");
-			picker_Country.Items.Add("Brazil");
-			picker_Country.Items.Add("Brunei ");
-			picker_Country.Items.Add("Bulgaria");
-			picker_Country.Items.Add("Burkina Faso");
-			picker_Country.Items.Add("Burma");
-			picker_Country.Items.Add("Burundi");
-
-			picker_Country.Items.Add("Cambodia");
-			picker_Country.Items.Add("Cameroon");
-			picker_Country.Items.Add("Canada");
-			picker_Country.Items.Add("Cape Verde");
-			picker_Country.Items.Add("Central African Republic");
-			picker_Country.Items.Add("Chad");
-			picker_Country.Items.Add("Chile");
-			picker_Country.Items.Add("China");
-			picker_Country.Items.Add("Colombia");
-			picker_Country.Items.Add("Comoros");
-			picker_Country.Items.Add("Congo, Democratic Republic of the");
-			picker_Country.Items.Add("Congo, Republic of the");
-			picker_Country.Items.Add("Costa Rica");
-			picker_Country.Items.Add("Cote d'Ivoire ");
-			picker_Country.Items.Add("Croatia");
-			picker_Country.Items.Add("Cuba");
-			picker_Country.Items.Add("Curacao");
-			picker_Country.Items.Add("Cyprus");
-			picker_Country.Items.Add("Czech Republic");
-
-			picker_Country.Items.Add("Denmark");
-			picker_Country.Items.Add("Djibouti");
-			picker_Country.Items.Add("Dominica");
-			picker_Country.Items.Add("Dominican Republic");
-
-			picker_Country.Items.Add("East Timor");
-			picker_Country.Items.Add("Ecuador");
-			picker_Country.Items.Add("Egypt");
-			picker_Country.Items.Add("El Salvador");
-			picker_Country.Items.Add("Equatorial Guinea");
-			picker_Country.Items.Add("Eritrea");
-			picker_Country.Items.Add("Estonia");
-			picker_Country.Items.Add("Ethiopia");
-
-			picker_Country.Items.Add("Fiji");
-			picker_Country.Items.Add("Finland");
-			picker_Country.Items.Add("Fiji");
-
-			picker_Country.Items.Add("Gabon");
-			picker_Country.Items.Add("Gambia");
-			picker_Country.Items.Add("Georgia");
-			picker_Country.Items.Add("Germany");
-			picker_Country.Items.Add("Ghana");
-			picker_Country.Items.Add("Greece");
-			picker_Country.Items.Add("Grenada");
-			picker_Country.Items.Add("Guatemala");
-			picker_Country.Items.Add("Guinea");
-			picker_Country.Items.Add("Guinea-Bissau");
-			picker_Country.Items.Add("Guyana");
-
-			picker_Country.Items.Add("Haiti");
-			picker_Country.Items.Add("Holy See");
-			picker_Country.Items.Add("Honduras");
-			picker_Country.Items.Add("Hong Kong");
-			picker_Country.Items.Add("Hungary");
-
-			picker_Country.Items.Add("Iceland");
-			picker_Country.Items.Add("India");
-			picker_Country.Items.Add("Indonesia");
-			picker_Country.Items.Add("Iran");
-			picker_Country.Items.Add("Iraq");
-			picker_Country.Items.Add("Ireland");
-			picker_Country.Items.Add("Israel");
-			picker_Country.Items.Add("Italy");
-
-			picker_Country.Items.Add("Jamaica");
-			picker_Country.Items.Add("Japan");
-			picker_Country.Items.Add("Jordan");
-
-			picker_Country.Items.Add("Oman");
-
-			picker_Country.Items.Add("Qatar");
-
-			picker_Country.Items.Add("Romania");
-			picker_Country.Items.Add("Russia");
-			picker_Country.Items.Add("Rwanda");
-			picker_Country.Items.Add("Uganda");
-			picker_Country.Items.Add("Ukraine");
-			picker_Country.Items.Add("United Arab Emirates");
-			picker_Country.Items.Add("United Kingdom");
-			picker_Country.Items.Add("Uruguay");
-			picker_Country.Items.Add("Uzbekistan");
-
-			picker_Country.Items.Add("Vanuatu");
-			picker_Country.Items.Add("Venezuela");
-			picker_Country.Items.Add("Vietnam");
-
-			picker_Country.Items.Add("Yemen");
-
-			picker_Country.Items.Add("Zambia");
-			picker_Country.Items.Add("Zimbabwe");
-
-			picker_Country.SelectedIndex = 0;
 
 			btn_Submit= new Button
 			{
@@ -336,13 +238,14 @@ namespace XamarinProfile
 				FontSize=17,
 				TextColor=Color.White,
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
+				CommandParameter = 1,
+				Command= ViewModel.RegisterUser,
 			};
-
 			stack_TopView = new StackLayout
 			{
-				HorizontalOptions = LayoutOptions.FillAndExpand,
-				HeightRequest=Height/4,
-				Padding= new Thickness(0,0,0,Height/40),
+				HorizontalOptions = LayoutOptions.Fill,
+				HeightRequest=Width/3,
+				Padding= new Thickness(0,0,0,Height/45),
 				//BackgroundColor=Color.Blue,
 				Children=
 				{
@@ -362,12 +265,12 @@ namespace XamarinProfile
 			{
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions=LayoutOptions.StartAndExpand,
-				Padding= new Thickness(Width/4,Height/40,Width/4,0),
+				Padding= new Thickness(Width/8,Height/40,Width/8,0),
 				//BackgroundColor=Color.Pink,
-				Spacing=Height/40,
+				Spacing=Height/45,
 				Children=
 				{
-					txt_Fname,txt_Lname,picker_Country,lbl_Expert
+					txt_Name,txt_Email,txt_Password,picker_Country,lbl_Expert
 
 
 				}
@@ -383,6 +286,7 @@ namespace XamarinProfile
 				IsEnabled=false
 			};
 			var iOStap = new TapGestureRecognizer(OniOSTapped);
+			iOStap.NumberOfTapsRequired = 1;
 			img_iOS.IsEnabled = true;
 			img_iOS.GestureRecognizers.Clear();
 			img_iOS.GestureRecognizers.Add(iOStap);
@@ -413,6 +317,7 @@ namespace XamarinProfile
 			};
 
 			var Androidtap = new TapGestureRecognizer(OnAndroidTapped);
+			Androidtap.NumberOfTapsRequired = 1;
 			img_Android.IsEnabled = true;
 			img_Android.GestureRecognizers.Clear();
 			img_Android.GestureRecognizers.Add(Androidtap);
@@ -493,7 +398,7 @@ namespace XamarinProfile
 				HorizontalOptions = LayoutOptions.StartAndExpand,
 				VerticalOptions=LayoutOptions.Fill,
 				//BackgroundColor=Color.Aqua,
-				Spacing=Width/20,
+				Spacing=Width/25,
 				Children=
 				{
 					stack_MiddleView,stack_FirstExpert,stack_SecondExpert,btn_Submit
@@ -532,102 +437,109 @@ namespace XamarinProfile
 
 			this.Content = rltv_main;
 		}
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+			ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+			ViewModel.GetCountriesCommand.Execute(null); //It should be below the above event
+		}
+		void SetExpert(string IdValue)
+		{
+				if(ExpertsValue.Contains(IdValue))
+					{
+						ExpertsValue = ExpertsValue.Replace (IdValue,"");
+					}
+					else
+					{
+						ExpertsValue = ExpertsValue + IdValue;
+					}
+			ViewModel.ExpertValue=ExpertsValue;
+
+		}
 
 		void OniOSTapped(View view, object sender)
 		{
 			if(img_iOS.IsEnabled==false)
 			{
 				img_iOS.IsEnabled=true;
-				img_iOS.BackgroundColor=Colors.Blue.ToFormsColor();
-				//img_iOS.Source="Android.png";
+				img_iOS.BackgroundColor=Colors.DarkGray.ToFormsColor();
 			}
 			else
 			{
 				img_iOS.IsEnabled=false;
-				img_iOS.BackgroundColor=Colors.DarkGray.ToFormsColor();
-				//img_iOS.Source="iOS.png";
-
+				img_iOS.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
+			SetExpert ("1");
 		}
 		void OnAndroidTapped(View view, object sender)
 		{
 			if(img_Android.IsEnabled==false)
 			{
 				img_Android.IsEnabled=true;
-				img_Android.BackgroundColor=Colors.Blue.ToFormsColor();
-				//img_iOS.Source="Android.png";
+				img_Android.BackgroundColor=Colors.DarkGray.ToFormsColor();
 			}
 			else
 			{
 				img_Android.IsEnabled=false;
-				img_Android.BackgroundColor=Colors.DarkGray.ToFormsColor();
-				//img_iOS.Source="iOS.png";
-
+				img_Android.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
+			SetExpert ("3");
 		}
 		void OnFormsTapped(View view, object sender)
 		{
 			if(img_Forms.IsEnabled==false)
 			{
 				img_Forms.IsEnabled=true;
-				img_Forms.BackgroundColor=Colors.Blue.ToFormsColor();
-				//img_iOS.Source="Android.png";
+				img_Forms.BackgroundColor=Colors.DarkGray.ToFormsColor();		
 			}
 			else
 			{
 				img_Forms.IsEnabled=false;
-				img_Forms.BackgroundColor=Colors.DarkGray.ToFormsColor();
-				//img_iOS.Source="iOS.png";
-
+				img_Forms.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
+			SetExpert ("4");
 		}
 		void OnInsightTapped(View view, object sender)
 		{
 			if(img_Insights.IsEnabled==false)
 			{
 				img_Insights.IsEnabled=true;
-				img_Insights.BackgroundColor=Colors.Blue.ToFormsColor();
-				//img_iOS.Source="Android.png";
+				img_Insights.BackgroundColor=Colors.DarkGray.ToFormsColor();	
 			}
 			else
 			{
 				img_Insights.IsEnabled=false;
-				img_Insights.BackgroundColor=Colors.DarkGray.ToFormsColor();
-				//img_iOS.Source="iOS.png";
-
+				img_Insights.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
+			SetExpert ("5");
 		}
 		void OnTestCloudTapped(View view, object sender)
 		{
 			if(img_Testcloud.IsEnabled==false)
 			{
 				img_Testcloud.IsEnabled=true;
-				img_Testcloud.BackgroundColor=Colors.Blue.ToFormsColor();
-				//img_iOS.Source="Android.png";
+				img_Testcloud.BackgroundColor=Colors.DarkGray.ToFormsColor();	
 			}
 			else
 			{
 				img_Testcloud.IsEnabled=false;
-				img_Testcloud.BackgroundColor=Colors.DarkGray.ToFormsColor();
-				//img_iOS.Source="iOS.png";
-
+				img_Testcloud.BackgroundColor=Colors.Blue.ToFormsColor();	
 			}
+			SetExpert ("6");
 		}
 		void OnCertifiedTapped(View view, object sender)
 		{
 			if(img_Certified.IsEnabled==false)
 			{
 				img_Certified.IsEnabled=true;
-				img_Certified.BackgroundColor=Colors.Blue.ToFormsColor();
-				//img_iOS.Source="Android.png";
+				img_Certified.BackgroundColor=Colors.DarkGray.ToFormsColor();
 			}
 			else
 			{
 				img_Certified.IsEnabled=false;
-				img_Certified.BackgroundColor=Colors.DarkGray.ToFormsColor();
-				//img_iOS.Source="iOS.png";
-
+				img_Certified.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
+			SetExpert ("2");
 		}
 		void OnCameraTapped(View view, object sender)
 		{
@@ -638,6 +550,22 @@ namespace XamarinProfile
 		{
 			ViewModel.SelectPictureCommand.Execute(null);
 
+		}
+		private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			Device.BeginInvokeOnMainThread (() => {
+				if (e.PropertyName == "PickerItems" && ViewModel.PickerItems != null && ViewModel.PickerItems.Count > 0) {
+					for (int i = 0; i < ViewModel.PickerItems.Count; i++) 
+					{
+						picker_Country.Items.Add (ViewModel.PickerItems [i].name); // You can show anything like I'm showing Name: ViewModel.PickerItems[i].ID | ViewModel.PickerItems[i].Abbr
+					}
+					picker_Country.Items.Insert (0, "Select Item"); //Adding Place Holder on 0 Index, It will be useless
+
+					ViewModel.SelectedIndex = 0; //We are telling user that It's a Picker "Select Item"
+			
+
+				}
+			});
 		}
 
 	}

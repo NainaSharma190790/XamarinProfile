@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading;
 using Xamarin.Forms;
+using System.Runtime.CompilerServices;
 
 namespace XamarinProfile
 {
@@ -21,82 +22,79 @@ namespace XamarinProfile
         }
 
 
-        public BaseViewModel()
-        {
-        }
+			private bool isBusy;
 
-        private string title = string.Empty;
-        public const string TitlePropertyName = "Title";
-        public string Title
-        {
-            get { return title; }
-            set { SetProperty(ref title, value, TitlePropertyName); }
-        }
+			public bool IsBusy {
+			get { return isBusy; }
+			set {
+				isBusy = value;
+				OnPropertyChanged ();
+				if (IsBusy) {
+					DependencyService.Get<IProgressView> ().Show ("");
+				} else {
+					DependencyService.Get<IProgressView> ().Hide ();
+				}
+			}
+		}
+		private bool _isValid;
 
-        private string subTitle = string.Empty;
-        public const string SubtitlePropertyName = "Subtitle";
-        public string Subtitle
-        {
-            get { return subTitle; }
-            set { SetProperty(ref subTitle, value, SubtitlePropertyName); }
-        }
+			public bool IsValid
+			{
+				get
+				{
+					return _isValid;
+				}
+				set {
+				_isValid = value;
+				OnPropertyChanged ();
 
-        private string icon = null;
-        public const string IconPropertyName = "Icon";
-        public string Icon
-        {
-            get { return icon; }
-            set { SetProperty(ref icon, value, IconPropertyName); }
-        }
+				//    DependencyService.Get<IProgressView>().ShowToast("");
 
-        private bool isBusy;
-        public const string IsBusyPropertyName = "IsBusy";
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value, IsBusyPropertyName); }
-        }
+				//Call Dependencies Service With Toast
 
-        private bool canLoadMore = true;
-        public const string CanLoadMorePropertyName = "CanLoadMore";
-        public bool CanLoadMore
-        {
-            get { return canLoadMore; }
-            set { SetProperty(ref canLoadMore, value, CanLoadMorePropertyName); }
-        }
+			}
+		}
 
-        protected void SetProperty<T>(
-            ref T backingStore, T value,
-            string propertyName,
-            Action onChanged = null,
-            Action<T> onChanging = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return;
 
-            if (onChanging != null)
-                onChanging(value);
+			private string _title;
 
-            backingStore = value;
+			public string Title
+			{
+				get { return _title; }
+				set { _title = value; OnPropertyChanged(); }
+			}
 
-            if (onChanged != null)
-                onChanged();
 
-            OnPropertyChanged(propertyName);
-        }
+			#region Navigation
 
-        #region INotifyPropertyChanged implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
+			public INavigation Navigation
+			{
+				get
+				{
+					var mainPage = Xamarin.Forms.Application.Current.MainPage;
+					if (mainPage is NavigationPage)
+					{
+						return (INavigation)mainPage.Navigation;
+					}
+					return Xamarin.Forms.Application.Current.MainPage.Navigation;
+				}
+			}
 
-        public void OnPropertyChanged(string propertyName)
-        {
+			#endregion
 
-            if (PropertyChanged == null)
-                return;
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			#region Property Changed Implementation
 
-        }
+			public event PropertyChangedEventHandler PropertyChanged;
 
-    }
+			protected virtual void OnPropertyChanged([CallerMemberName] string propertyName=null)
+			{
+				if (PropertyChanged != null)
+				{
+					PropertyChanged(this,
+						new PropertyChangedEventArgs(propertyName));
+				}
+		}
+
+			#endregion
+	}
 }

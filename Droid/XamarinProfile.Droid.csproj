@@ -78,8 +78,28 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="ExifLib">
-      <HintPath>..\..\..\Naina\FormsSample\InsideInnings-master\InsideInnings-master\InsideInning\InsideInning.Droid\bin\Debug\ExifLib.dll</HintPath>
+      <HintPath>..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Core">
+      <HintPath>..\packages\XLabs.Core.2.0.5782\lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1\XLabs.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Platform">
+      <HintPath>..\packages\XLabs.Platform.2.0.5782\lib\MonoAndroid\XLabs.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Platform.Droid">
+      <HintPath>..\packages\XLabs.Platform.2.0.5782\lib\MonoAndroid\XLabs.Platform.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android.Export" />
+    <Reference Include="XLabs.Serialization">
+      <HintPath>..\packages\XLabs.Serialization.2.0.5782\lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1\XLabs.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Forms">
+      <HintPath>..\packages\XLabs.Forms.2.0.5782\lib\MonoAndroid\XLabs.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Forms.Droid">
+      <HintPath>..\packages\XLabs.Forms.2.0.5782\lib\MonoAndroid\XLabs.Forms.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +112,7 @@
     <Compile Include="Renderers\CustomPickerRenderer.cs" />
     <Compile Include="Media\MediaPicker.cs" />
     <Compile Include="Media\MediaPickerActivity.cs" />
+    <Compile Include="Renderers\CustomListViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -157,6 +178,12 @@
     <AndroidResource Include="Resources\drawable-hdpi\bg.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\bg.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\bg.png" />
+    <AndroidResource Include="Resources\drawable\Divider.png" />
+    <AndroidResource Include="Resources\drawable\img1.jpg" />
+    <AndroidResource Include="Resources\drawable\img2.jpg" />
+    <AndroidResource Include="Resources\drawable\img3.jpg" />
+    <AndroidResource Include="Resources\drawable\img4.jpg" />
+    <AndroidResource Include="Resources\drawable\img5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\drawable-hdpi\camera.png" />
