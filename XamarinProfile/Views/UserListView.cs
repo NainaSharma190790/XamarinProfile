@@ -24,6 +24,7 @@ namespace XamarinProfile
 		public int Height = App.ScreenHeight;
 		public int Width = App.ScreenWidth;
 		public Image img_iOS, img_Android, img_Forms,img_Testcloud,img_Insights,img_Certified;
+
 		public UserListView()
 		{
 			Label header = new Label

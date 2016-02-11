@@ -103,7 +103,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\CircleImageRenderer.cs" />
@@ -113,6 +112,8 @@
     <Compile Include="Media\MediaPicker.cs" />
     <Compile Include="Media\MediaPickerActivity.cs" />
     <Compile Include="Renderers\CustomListViewRenderer.cs" />
+    <Compile Include="Activity\MainActivity.cs" />
+    <Compile Include="Activity\SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -129,6 +130,7 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Media\" />
+    <Folder Include="Activity\" />
   </ItemGroup>
   <Import Project="..\XamarinProfile\XamarinProfile.projitems" Label="Shared" Condition="Exists('..\XamarinProfile\XamarinProfile.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
@@ -184,6 +186,7 @@
     <AndroidResource Include="Resources\drawable\img3.jpg" />
     <AndroidResource Include="Resources\drawable\img4.jpg" />
     <AndroidResource Include="Resources\drawable\img5.jpg" />
+    <AndroidResource Include="Resources\layout\SplashLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\drawable-hdpi\camera.png" />

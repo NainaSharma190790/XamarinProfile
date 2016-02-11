@@ -1,6 +1,7 @@
 ﻿using System;
 using Colors = XamarinProfile.Helpers.Color;
 using Xamarin.Forms;
+using Android.Graphics;
 
 namespace XamarinProfile
 {
@@ -45,14 +46,19 @@ namespace XamarinProfile
 			};
 			img_User = new CircleImage
 			{
+				WidthRequest = Width/4,
 				HeightRequest = Width/4,
+
 				HorizontalOptions = LayoutOptions.Center,
 				//BackgroundColor=Color.Yellow,
 				TranslationY=-((Width/4)/2+10),
 				Aspect=Aspect.Fill,
-				Source="img1.png",
+				Source="CircleImage.png",
 			};
-			//img_User.SetBinding (Image.SourceProperty, "UserRegInfo.image");
+			img_User.SetBinding(CircleImage.SourceProperty, "ImageSource", BindingMode.Default);
+
+		
+			ViewModel.ProfilePicture = img_User;
 			btn_camera = new Image
 			{
 				Source="camera.png",
@@ -60,6 +66,7 @@ namespace XamarinProfile
 				HeightRequest=Height/8,
 				HorizontalOptions=LayoutOptions.Start,
 				VerticalOptions = LayoutOptions.Center,
+				BackgroundColor=Xamarin.Forms.Color.Red,
 
 			};
 
@@ -75,6 +82,7 @@ namespace XamarinProfile
 				HeightRequest=Height/8,
 				HorizontalOptions=LayoutOptions.End,
 				VerticalOptions = LayoutOptions.Center,
+				BackgroundColor=Xamarin.Forms.Color.Green,
 
 			};
 			var Gallerytap = new TapGestureRecognizer(OnGalleryTapped);
@@ -88,7 +96,7 @@ namespace XamarinProfile
 				WidthRequest = Width / 2,
 				VerticalOptions = LayoutOptions.Center,
 				HorizontalOptions = LayoutOptions.Center,
-				BackgroundColor = Color.White,
+				BackgroundColor = Xamarin.Forms.Color.White,
 				TranslationY=Width / 2,
 				Opacity = 1,
 				Children = 
@@ -111,7 +119,7 @@ namespace XamarinProfile
 			{ 
 				WidthRequest = Width,
 				HeightRequest = Height,
-				BackgroundColor=Color.Transparent,
+				BackgroundColor=Xamarin.Forms.Color.Transparent,
 				Children=
 				{
 					stack_pop
@@ -175,14 +183,13 @@ namespace XamarinProfile
 				NumberOfTapsRequired = 1
 			};
 			img_User.GestureRecognizers.Add(ProfilePictureGestureRecognizer);
-			//img_User.SetBinding(Image.SourceProperty, "SelectPictureCommand");
 			txt_Name = new EditText
 			{
 				WidthRequest = Width,
 				HorizontalOptions = LayoutOptions.Center,
 				Placeholder="FullName",
 				TextColor=Colors.DarkGray.ToFormsColor(),
-				BackgroundColor=Color.Transparent,
+				BackgroundColor=Xamarin.Forms.Color.Transparent,
 				HeightRequest=Width/10,
 			};
 			txt_Name.SetBinding(Entry.TextProperty, "UserRegInfo.name");
@@ -194,7 +201,7 @@ namespace XamarinProfile
 				Keyboard=Keyboard.Email,
 				Placeholder="Email",
 				TextColor=Colors.DarkGray.ToFormsColor(),
-				BackgroundColor=Color.Transparent,
+				BackgroundColor=Xamarin.Forms.Color.Transparent,
 				HeightRequest=Width/10
 					
 			};
@@ -207,7 +214,7 @@ namespace XamarinProfile
 				IsPassword=true,
 				Placeholder="Password",
 				TextColor=Colors.DarkGray.ToFormsColor(),
-				BackgroundColor=Color.Transparent,
+				BackgroundColor=Xamarin.Forms.Color.Transparent,
 				HeightRequest=Width/10
 
 			};
@@ -219,7 +226,7 @@ namespace XamarinProfile
 				HorizontalOptions = LayoutOptions.Center,
 				Title="Location",
 				HeightRequest=Width/10,
-				BackgroundColor=Color.Transparent,
+				BackgroundColor=Xamarin.Forms.Color.Transparent,
 
 			};
 				picker_Country.SelectedIndexChanged+=((sender, e) => 
@@ -236,7 +243,7 @@ namespace XamarinProfile
 				HeightRequest=Width/8,			
 				Text="Submit",	
 				FontSize=17,
-				TextColor=Color.White,
+				TextColor=Xamarin.Forms.Color.White,
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
 				CommandParameter = 1,
 				Command= ViewModel.RegisterUser,
@@ -416,7 +423,7 @@ namespace XamarinProfile
 			{ 
 				HorizontalOptions = LayoutOptions.Fill,
 				VerticalOptions=LayoutOptions.End,
-				BackgroundColor=Color.White,
+				BackgroundColor=Xamarin.Forms.Color.White,
 				WidthRequest=Width,
 				HeightRequest=Height,
 				Children = 
@@ -544,11 +551,13 @@ namespace XamarinProfile
 		void OnCameraTapped(View view, object sender)
 		{
 			ViewModel.TakePictureCommand.Execute(null);
+			image_bg.IsVisible=false;
 
 		}
 		void OnGalleryTapped(View view, object sender)
 		{
 			ViewModel.SelectPictureCommand.Execute(null);
+			image_bg.IsVisible=false;
 
 		}
 		private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -559,10 +568,9 @@ namespace XamarinProfile
 					{
 						picker_Country.Items.Add (ViewModel.PickerItems [i].name); // You can show anything like I'm showing Name: ViewModel.PickerItems[i].ID | ViewModel.PickerItems[i].Abbr
 					}
-					picker_Country.Items.Insert (0, "Select Item"); //Adding Place Holder on 0 Index, It will be useless
+					 //We are telling user that It's a Picker "Select Item"
+					ViewModel.SelectedIndex = 0;
 
-					ViewModel.SelectedIndex = 0; //We are telling user that It's a Picker "Select Item"
-			
 
 				}
 			});

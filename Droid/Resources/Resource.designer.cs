@@ -5013,6 +5013,12 @@ namespace XamarinProfile.Droid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f0b0086
+			public const int SplashImageView = 2131427462;
+			
+			// aapt resource value: 0x7f0b0085
+			public const int TheSplashLayout = 2131427461;
+			
 			// aapt resource value: 0x7f0b0078
 			public const int action0 = 2131427448;
 			
@@ -5610,10 +5616,13 @@ namespace XamarinProfile.Droid
 			public const int select_dialog_singlechoice_material = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int support_simple_spinner_dropdown_item = 2130903091;
+			public const int SplashLayout = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int week = 2130903092;
+			public const int support_simple_spinner_dropdown_item = 2130903092;
+			
+			// aapt resource value: 0x7f030035
+			public const int week = 2130903093;
 			
 			static Layout()
 			{

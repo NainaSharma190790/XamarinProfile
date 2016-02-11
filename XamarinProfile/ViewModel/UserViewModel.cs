@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Net.Http;
 using Android.Content.Res;
 using Newtonsoft.Json;
+using System.IO;
+using Android.Graphics;
 
 namespace XamarinProfile
 {
@@ -23,18 +25,11 @@ namespace XamarinProfile
 			Setup();
 			UserRegInfo = new UserRegistrationRequest(); //{ first_name = "Mohd", last_name = "Riyaz", email = "test@test.com", mobileno = "0987654321", password = "test123#", city = "", address = "test road, test" };
 			GetCountriesCommand.Execute(null);
-			//CountryCategories = new ObservableCollection<Country>();
-
 
 		}
+	
 
-//		private ObservableCollection<Country> _countryCategories;
-//
-//		public ObservableCollection<Country> CountryCategories
-//		{
-//			get { return _countryCategories; }
-//			set { _countryCategories = value; OnPropertyChanged(); }
-//		}	
+		public string imageString;
 		private UserRegistrationRequest _userRegInfo;
 
 		public UserRegistrationRequest UserRegInfo
@@ -46,7 +41,19 @@ namespace XamarinProfile
 				OnPropertyChanged();
 			}
 		}
-
+		private ImageSource _imageTest;
+		public ImageSource ImageTest
+		{
+			get
+			{
+				return _imageTest;
+			}
+			set
+			{
+				_imageTest = value;
+				OnPropertyChanged("ImageTest");
+			}
+		}
 		private string _expertValue;
 
 		public string ExpertValue
@@ -55,7 +62,13 @@ namespace XamarinProfile
 			set { _expertValue = value; OnPropertyChanged(); }
 		}
 
+		private Image _profilePicture;
 
+		public Image ProfilePicture
+		{
+			get { return _profilePicture; }
+			set { _profilePicture = value; OnPropertyChanged(); }
+		}
 
 		private IList<CountryPicker> _pickerItems;
 		public IList<CountryPicker> PickerItems
@@ -115,6 +128,7 @@ namespace XamarinProfile
 					{	
 						UserRegInfo.experts=ExpertValue;
 						UserRegInfo.location=SelectedIndex.ToString();
+						UserRegInfo.image=imageString;
 						#region Service to register a user
 						await ServiceHandler.PostGetData<UserRegistrationResponse, UserRegistrationRequest>(ServiceHandler.Constant.RegisterUser, HttpMethod.Post, UserRegInfo).ContinueWith(t =>
 							{
@@ -125,7 +139,8 @@ namespace XamarinProfile
 									if (t.Result.StatusCode == "1") 
 									{
 										Console.WriteLine ("Success");
-										Navigation.PushModalAsync(new UserListView());
+											App.Instance.NavigateToAsync(new UserListView());
+
 									} 
 									else
 									{
@@ -159,9 +174,9 @@ namespace XamarinProfile
 		/// <summary>
 		/// The image source.
 		/// </summary>
-		private ImageSource _imageSource = "iOS.png";
+		private ImageSource _imageSource="CircleImage.png";
 
-
+	
 		/// <summary>
 		/// The take picture command.
 		/// </summary>
@@ -265,6 +280,11 @@ namespace XamarinProfile
 						var mediaFile = t.Result;
 
 						ImageSource = ImageSource.FromStream(() => mediaFile.Source);
+						FileStream fs = new FileStream(mediaFile.Path, FileMode.Open,FileAccess.Read);
+						byte[] ImageData = new byte[fs.Length];
+						fs.Read(ImageData,0,System.Convert.ToInt32(fs.Length));
+						fs.Close();
+						imageString = Convert.ToBase64String (ImageData);
 
 						return mediaFile;
 					}
@@ -272,6 +292,8 @@ namespace XamarinProfile
 					return null;
 				}, _scheduler);
 		}
+
+
 
 		/// <summary>
 		/// Gets the select picture command.
@@ -306,6 +328,19 @@ namespace XamarinProfile
 						MaxPixelDimension = 400
 					});
 				ImageSource = ImageSource.FromStream(() => mediaFile.Source);
+
+				//Convert image to string
+				FileStream fs = new FileStream(mediaFile.Path, FileMode.Open,FileAccess.Read);
+				byte[] ImageData = new byte[fs.Length];
+				fs.Read(ImageData,0,System.Convert.ToInt32(fs.Length));
+				fs.Close();
+				imageString = Convert.ToBase64String (ImageData);
+
+				//Convert string to image
+
+				Byte[] ImageFotoBase64 = System.Convert.FromBase64String(imageString); 
+				ImageTest = ImageSource.FromStream(() => new MemoryStream(ImageFotoBase64)); 
+
 			}
 			catch (System.Exception ex)
 			{
@@ -313,6 +348,17 @@ namespace XamarinProfile
 			}
 		}
 
+
 		#endregion
+//		public System.Drawing.Image Base64ToImage()   
+//		{  
+//			byte[] imageBytes = Convert.FromBase64String(imageString);  
+//			MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);  
+//			ms.Write(imageBytes, 0, imageBytes.Length);  
+//			System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);  
+//			return image;  
+//		} 
+//
+//		public Image test = (Image)Base64ToImage();
 	}
 }

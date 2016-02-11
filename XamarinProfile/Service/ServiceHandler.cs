@@ -13,7 +13,7 @@ namespace XamarinProfile
 	{
 		internal class Constant
 		{
-			public const string HostName = "http://research.demo.netsmartz.us/webservices/?action=";
+		public const string HostName = "http://research.demo.netsmartz.us/webservices/?action=";
 			public const string RegisterUser = "register";
 			public const string Login = "login";
 			public const string Countries = "countries";

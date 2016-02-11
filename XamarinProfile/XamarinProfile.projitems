@@ -40,6 +40,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)test.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CountryPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Country.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserLoginView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\ICameraAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
