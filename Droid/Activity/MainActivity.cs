@@ -12,7 +12,7 @@ using XLabs.Platform.Services.Media;
 
 namespace XamarinProfile.Droid
 {
-	[Activity(Icon = "@drawable/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity(Icon = "@drawable/AppLogo", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
 	{
 		protected override void OnCreate (Bundle bundle)

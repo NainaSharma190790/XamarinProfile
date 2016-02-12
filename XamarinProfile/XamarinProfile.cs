@@ -15,6 +15,7 @@ namespace XamarinProfile
 		public App ()
 		{
 			Database.CreateTables<CountryPicker>();
+
 			MainPage = new UserLoginView();
 		}
 

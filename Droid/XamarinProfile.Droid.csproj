@@ -101,6 +101,12 @@
     <Reference Include="XLabs.Forms.Droid">
       <HintPath>..\packages\XLabs.Forms.2.0.5782\lib\MonoAndroid\XLabs.Forms.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="Toasts.Forms.Plugin.Abstractions">
+      <HintPath>..\packages\Toasts.Forms.Plugin.2.0.3\lib\MonoAndroid10\Toasts.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Toasts.Forms.Plugin.Droid">
+      <HintPath>..\packages\Toasts.Forms.Plugin.2.0.3\lib\MonoAndroid10\Toasts.Forms.Plugin.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -187,6 +193,14 @@
     <AndroidResource Include="Resources\drawable\img4.jpg" />
     <AndroidResource Include="Resources\drawable\img5.jpg" />
     <AndroidResource Include="Resources\layout\SplashLayout.axml" />
+    <AndroidResource Include="Resources\drawable\AppLogo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\AppLogo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\AppLogo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\AppLogo.png" />
+    <AndroidResource Include="Resources\drawable\Splash.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\Splash.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Splash.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Splash.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\drawable-hdpi\camera.png" />

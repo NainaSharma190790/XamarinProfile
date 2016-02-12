@@ -22,13 +22,23 @@ namespace XamarinProfile
 		public UserLoginView ()
 		{
 			
-			BindingContext = new UserViewModel();
+			BindingContext = new UserViewModel(this.Navigation);
+
+
+			var indicator = new ActivityIndicator
+			{
+				Color = Colors.DarkGray.ToFormsColor(),
+
+			};
+			indicator.SetBinding (ActivityIndicator.IsRunningProperty, "IsLoading");
+			indicator.SetBinding (ActivityIndicator.IsVisibleProperty, "IsLoading");
 
 			img_Logo = new Image
 			{
 				HeightRequest = Width/4,
+				WidthRequest = Width/4,
 				HorizontalOptions = LayoutOptions.Center,
-				Source="icon.png",
+				Source="AppLogo.png",
 			};
 
 			txt_Email = new EditText
@@ -39,9 +49,10 @@ namespace XamarinProfile
 				Placeholder="Email",
 				TextColor=Colors.DarkGray.ToFormsColor(),
 				BackgroundColor=Color.Transparent,
-				HeightRequest=Width/10
+				HeightRequest=Width/10,
+				Text="naina.sharma@netsmartz.net"
 			};
-			//txt_Email.SetBinding(Entry.TextProperty, "UserRegInfo.name");
+			txt_Email.SetBinding(Entry.TextProperty, "Username");
 
 			txt_Password = new EditText
 			{
@@ -51,9 +62,11 @@ namespace XamarinProfile
 				Placeholder="Password",
 				TextColor=Colors.DarkGray.ToFormsColor(),
 				BackgroundColor=Color.Transparent,
-				HeightRequest=Width/10
+				HeightRequest=Width/10,
+				Text="123"
+					
 			};
-			//txt_Password.SetBinding(Entry.TextProperty, "UserRegInfo.password");
+			txt_Password.SetBinding(Entry.TextProperty, "Password");
 
 			btn_Login= new Button
 			{
@@ -67,14 +80,16 @@ namespace XamarinProfile
 			};
 			btn_Login.Clicked+= (sender, e) => 
 			{
-				Navigation.PushModalAsync(new UserRegistrationView());
+
+				btn_Login.CommandParameter = 1;
+				btn_Login.Command= ViewModel.LoginUser;
 
 			};
 
 			lbl_Registration = new ExtendedLabel
 			{
 				WidthRequest = Width,
-				Text="Registrations",
+				Text="Sing Up",
 				HorizontalOptions = LayoutOptions.Start,
 				TextColor=Colors.DarkGray.ToFormsColor(),
 				BackgroundColor=Color.Transparent,
@@ -99,7 +114,7 @@ namespace XamarinProfile
 				IsUnderline=true
 
 			};
-			var Forgottap = new TapGestureRecognizer(OnRegistrationTapped);
+			var Forgottap = new TapGestureRecognizer(OnForgotPasswordTapped);
 			Forgottap.NumberOfTapsRequired = 1;
 			lbl_Forgot.IsEnabled = true;
 			lbl_Forgot.GestureRecognizers.Clear();
@@ -129,10 +144,9 @@ namespace XamarinProfile
 				HeightRequest=Height,
 				Children = 
 				{
-					img_Logo,txt_Email,txt_Password,btn_Login,stack_BottomView
+					indicator,img_Logo,txt_Email,txt_Password,btn_Login,stack_BottomView
 				}
 				};
-
 			this.Content = stack_MainLayout;
 		}
 		void OnRegistrationTapped(View view, object sender)
@@ -140,6 +154,12 @@ namespace XamarinProfile
 			Navigation.PushModalAsync(new UserRegistrationView());
 
 		}
+		void OnForgotPasswordTapped(View view, object sender)
+		{
+			Navigation.PushModalAsync(new ForgotPasswordView());
+
+		}
+
 
 	}
 }

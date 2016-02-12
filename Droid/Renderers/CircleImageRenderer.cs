@@ -40,7 +40,7 @@ namespace XamarinProfile.Droid
 			if (e.PropertyName == Image.IsLoadingProperty.PropertyName && !this.Element.IsLoading
 				&& this.Control.Drawable != null && this.Element.Aspect != Aspect.AspectFit)
 			{
-				if (Control.Drawable.IntrinsicWidth != 0) 
+				if (Control.Drawable.IntrinsicWidth > 0 && Control.Drawable.IntrinsicHeight > 0 ) 
 				{
 					using (var sourceBitmap = Bitmap.CreateBitmap (this.Control.Drawable.IntrinsicWidth, this.Control.Drawable.IntrinsicHeight, Bitmap.Config.Argb8888))
 					using (var canvas = new Canvas (sourceBitmap)) {

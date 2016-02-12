@@ -154,4 +154,7 @@
     <BundleResource Include="Resources\gallery.png" />
     <BundleResource Include="Resources\bg.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\AppLogo.png" />
+  </ItemGroup>
 </Project>

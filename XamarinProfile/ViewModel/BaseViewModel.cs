@@ -22,20 +22,8 @@ namespace XamarinProfile
         }
 
 
-			private bool isBusy;
 
-			public bool IsBusy {
-			get { return isBusy; }
-			set {
-				isBusy = value;
-				OnPropertyChanged ();
-				if (IsBusy) {
-					DependencyService.Get<IProgressView> ().Show ("");
-				} else {
-					DependencyService.Get<IProgressView> ().Hide ();
-				}
-			}
-		}
+
 		private bool _isValid;
 
 			public bool IsValid

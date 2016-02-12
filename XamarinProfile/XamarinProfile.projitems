@@ -42,6 +42,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Country.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserLoginView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\ICameraAccess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ForgotPasswordView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CheckLogin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />

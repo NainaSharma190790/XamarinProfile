@@ -20,7 +20,7 @@ namespace XamarinProfile.Droid
 		
 			#region Private
 
-			private static int SPLASH_TIME_OUT = 3000;
+			private static int SPLASH_TIME_OUT = 1000;
 
 			#endregion
 

@@ -19,9 +19,12 @@ namespace XamarinProfile
 {
 	public class UserViewModel:BaseViewModel
 	{
+		private INavigation _navigation; // HERE
 
-		public UserViewModel()
+
+		public UserViewModel(INavigation navigation) 
 		{
+			_navigation = navigation;
 			Setup();
 			UserRegInfo = new UserRegistrationRequest(); //{ first_name = "Mohd", last_name = "Riyaz", email = "test@test.com", mobileno = "0987654321", password = "test123#", city = "", address = "test road, test" };
 			GetCountriesCommand.Execute(null);
@@ -99,6 +102,36 @@ namespace XamarinProfile
 				}
 			}
 		}
+		public CheckLogin CheckLogin
+		{
+			get { return  new CheckLogin { UserName = this.Username, Password = this.Password }; }
+		}
+
+		private string _userName="naina.sharma@netsmartz.net";
+
+		public string Username
+		{
+			get { return _userName; }
+			set { _userName = value; OnPropertyChanged("Username"); }
+		}
+
+		private string _password="123";
+
+		public string Password
+		{
+			get { return _password; }
+			set { _password = value; OnPropertyChanged("Password"); }
+		}
+		private bool isLoading;
+		public bool IsLoading
+		{
+			get { return isLoading; }
+			set
+			{
+				isLoading = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public ICommand GetCountriesCommand
 		{
@@ -106,13 +139,13 @@ namespace XamarinProfile
 			{
 				return new Command (async () =>
 					{
-						
+						//IsLoading=true;
 						await ServiceHandler.PostGetData<CountriesResponse<CountryPicker>, string> (ServiceHandler.Constant.Countries, HttpMethod.Get, null).ContinueWith (t => 
 							{
 								if (!t.IsFaulted && t.Result != null)
 								{
 									PickerItems = t.Result.PayloadData.Countries.ToList();
-
+									//IsLoading=false;
 								}
 							});
 					});
@@ -130,6 +163,7 @@ namespace XamarinProfile
 						UserRegInfo.location=SelectedIndex.ToString();
 						UserRegInfo.image=imageString;
 						#region Service to register a user
+					//	IsLoading=true;
 						await ServiceHandler.PostGetData<UserRegistrationResponse, UserRegistrationRequest>(ServiceHandler.Constant.RegisterUser, HttpMethod.Post, UserRegInfo).ContinueWith(t =>
 							{
 								try
@@ -138,8 +172,8 @@ namespace XamarinProfile
 								{
 									if (t.Result.StatusCode == "1") 
 									{
-										Console.WriteLine ("Success");
-											App.Instance.NavigateToAsync(new UserListView());
+											//IsLoading=false;
+											Console.WriteLine ("Success");
 
 									} 
 									else
@@ -158,7 +192,39 @@ namespace XamarinProfile
 				
 			}
 		}
-			
+		public ICommand LoginUser {
+			get {
+
+				return new Command (async (args) => {
+					IsLoading = true;
+					try
+					{
+					await ServiceHandler.PostGetData<UserRegistrationResponse, CheckLogin> (ServiceHandler.Constant.Login, HttpMethod.Post, CheckLogin).ContinueWith (t => {
+						
+							if (!t.IsFaulted && t.Result != null) {
+								if (t.Result.StatusCode == "1") {
+									IsLoading = false;
+									Console.WriteLine ("Success");
+									_navigation.PopModalAsync(new UserRegistrationView ());
+
+								} else {
+									Console.WriteLine ("Error");
+								}
+							}
+
+						
+					},
+						TaskScheduler.FromCurrentSynchronizationContext ());
+					}
+					catch (Exception ex) 
+					{
+						Console.WriteLine (ex.Message);
+					}
+				});
+			}
+		}
+
+
 		#region Functionality of profile picture
 
 		/// <summary>

@@ -26,7 +26,6 @@ namespace XamarinProfile
 
 		public UserViewModel ViewModel { get { return BindingContext as UserViewModel; } }
 
-		//public TesteViewModel Model { get { return BindingContext as TesteViewModel; } }
 
 		public UserRegistrationView ()
 		{
@@ -34,7 +33,7 @@ namespace XamarinProfile
 //				ViewModel = new UserViewModel();
 //			BindingContext = ViewModel;
 
-			BindingContext = new UserViewModel();
+			BindingContext = new UserViewModel(this.Navigation);
 
 			stack_CoverPage = new StackLayout
 			{
@@ -245,8 +244,14 @@ namespace XamarinProfile
 				FontSize=17,
 				TextColor=Xamarin.Forms.Color.White,
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
-				CommandParameter = 1,
-				Command= ViewModel.RegisterUser,
+
+			};
+			btn_Submit.Clicked+= (sender, e) => 
+			{
+				btn_Submit.CommandParameter = 1;
+				btn_Submit.Command= ViewModel.RegisterUser;
+				Navigation.PushModalAsync(new UserListView());
+				
 			};
 			stack_TopView = new StackLayout
 			{
