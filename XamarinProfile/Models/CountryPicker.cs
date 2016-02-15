@@ -23,9 +23,12 @@ namespace XamarinProfile
 		public Payload()
 		{
 			Countries = new ObservableCollection<T>();
+			GetUser = new ObservableCollection<T>();
 		}
 		[JsonProperty("countries")]
 		public ObservableCollection<T> Countries { get; set; }
+		[JsonProperty("getAllUsers")]
+		public ObservableCollection<T> GetUser { get; set; }
 	}
 	public class CountriesResponse<T>
 	{

@@ -10,10 +10,8 @@ using XLabs.Platform.Services.Media;
 using XLabs.Ioc;
 using System.Windows.Input;
 using System.Net.Http;
-using Android.Content.Res;
 using Newtonsoft.Json;
 using System.IO;
-using Android.Graphics;
 
 namespace XamarinProfile
 {
@@ -21,21 +19,20 @@ namespace XamarinProfile
 	{
 		private INavigation _navigation; // HERE
 
-
 		public UserViewModel(INavigation navigation) 
 		{
 			_navigation = navigation;
 			Setup();
-			UserRegInfo = new UserRegistrationRequest(); //{ first_name = "Mohd", last_name = "Riyaz", email = "test@test.com", mobileno = "0987654321", password = "test123#", city = "", address = "test road, test" };
+			UserRegInfo = new UserRegistrationPayload(); //{ first_name = "Mohd", last_name = "Riyaz", email = "test@test.com", mobileno = "0987654321", password = "test123#", city = "", address = "test road, test" };
 			GetCountriesCommand.Execute(null);
-
+			GetAllUsers.Execute(null);
 		}
 	
 
 		public string imageString;
-		private UserRegistrationRequest _userRegInfo;
+		private UserRegistrationPayload _userRegInfo;
 
-		public UserRegistrationRequest UserRegInfo
+		public UserRegistrationPayload UserRegInfo
 		{
 			get { return _userRegInfo; }
 			set
@@ -133,25 +130,44 @@ namespace XamarinProfile
 			}
 		}
 
+
 		public ICommand GetCountriesCommand
 		{
 			get
 			{
 				return new Command (async () =>
 					{
-						//IsLoading=true;
+						IsLoading=true;
 						await ServiceHandler.PostGetData<CountriesResponse<CountryPicker>, string> (ServiceHandler.Constant.Countries, HttpMethod.Get, null).ContinueWith (t => 
 							{
 								if (!t.IsFaulted && t.Result != null)
 								{
 									PickerItems = t.Result.PayloadData.Countries.ToList();
-									//IsLoading=false;
+									IsLoading=false;
 								}
 							});
 					});
 			}
 		}
 
+
+		public ICommand GetAllUsers {
+			get {
+
+				return new Command (async (args) => {
+					IsLoading = true;
+					await ServiceHandler.PostGetData<UserRegistration<UserRegistrationRequest>, string> (ServiceHandler.Constant.AllUser, HttpMethod.Get, null).ContinueWith (t =>
+						{
+
+						if (!t.IsFaulted && t.Result != null)
+						{
+							//GetUsers = t.Result.PayloadData.ToList ();
+							IsLoading = false;	
+						}
+					});
+				});
+			}
+		}
 
 		public ICommand RegisterUser
 		{
@@ -163,67 +179,66 @@ namespace XamarinProfile
 						UserRegInfo.location=SelectedIndex.ToString();
 						UserRegInfo.image=imageString;
 						#region Service to register a user
-					//	IsLoading=true;
-						await ServiceHandler.PostGetData<UserRegistrationResponse, UserRegistrationRequest>(ServiceHandler.Constant.RegisterUser, HttpMethod.Post, UserRegInfo).ContinueWith(t =>
-							{
-								try
-							{
-								if (!t.IsFaulted && t.Result != null)
-								{
-									if (t.Result.StatusCode == "1") 
-									{
-											//IsLoading=false;
-											Console.WriteLine ("Success");
-
-									} 
-									else
-									{
-										Console.WriteLine ("Error");
-									}
-								}
-							} 
-							catch (Exception ex)
-							{
-
-							}
-						});
+						//	IsLoading=true;
+//						await ServiceHandler.PostGetData<UserRegistrationResponse, UserRegistrationRequest>(ServiceHandler.Constant.RegisterUser, HttpMethod.Post, UserRegInfo).ContinueWith(t =>
+//							{
+//								try
+//								{
+//									if (!t.IsFaulted && t.Result != null)
+//									{
+//										if (t.Result.StatusCode == "1") 
+//										{
+//											//IsLoading=false;
+//											Console.WriteLine ("Success");
+//
+//										} 
+//										else
+//										{
+//											Console.WriteLine ("Error");
+//										}
+//									}
+//								} 
+//								catch (Exception ex)
+//								{
+//
+//								}
+//							});
 						#endregion	
 					});
-				
+
 			}
 		}
 		public ICommand LoginUser {
 			get {
 
-				return new Command (async (args) => {
-					IsLoading = true;
-					try
-					{
-					await ServiceHandler.PostGetData<UserRegistrationResponse, CheckLogin> (ServiceHandler.Constant.Login, HttpMethod.Post, CheckLogin).ContinueWith (t => {
-						
-							if (!t.IsFaulted && t.Result != null) {
-								if (t.Result.StatusCode == "1") {
-									IsLoading = false;
-									Console.WriteLine ("Success");
-									_navigation.PopModalAsync(new UserRegistrationView ());
-
-								} else {
-									Console.WriteLine ("Error");
-								}
-							}
-
-						
-					},
-						TaskScheduler.FromCurrentSynchronizationContext ());
-					}
-					catch (Exception ex) 
-					{
-						Console.WriteLine (ex.Message);
-					}
+			return new Command (async (args) => {
+//					IsLoading = true;
+//					try
+//					{
+//						await ServiceHandler.PostGetData<UserRegistrationResponse, CheckLogin> (ServiceHandler.Constant.Login, HttpMethod.Post, CheckLogin).ContinueWith (t => {
+//
+//							if (!t.IsFaulted && t.Result != null) {
+//								if (t.Result.StatusCode == "1") {
+//									IsLoading = false;
+//									Console.WriteLine ("Success");
+//									_navigation.PopModalAsync(new UserRegistrationView ());
+//
+//								} else {
+//									Console.WriteLine ("Error");
+//								}
+//							}
+//
+//
+//						},
+//							TaskScheduler.FromCurrentSynchronizationContext ());
+//					}
+//					catch (Exception ex) 
+//					{
+//						Console.WriteLine (ex.Message);
+//					}
 				});
 			}
 		}
-
 
 		#region Functionality of profile picture
 

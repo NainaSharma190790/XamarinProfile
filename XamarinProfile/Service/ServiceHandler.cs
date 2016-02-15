@@ -17,7 +17,7 @@ namespace XamarinProfile
 			public const string RegisterUser = "register";
 			public const string Login = "login";
 			public const string Countries = "countries";
-
+			public const string AllUser="getAllUsers";
 		}
 
 		public static async Task<Tr> PostGetData<Tr, T>(string endpoint, HttpMethod method,

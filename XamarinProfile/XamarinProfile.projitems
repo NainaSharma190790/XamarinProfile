@@ -39,11 +39,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindablePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)test.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CountryPicker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Country.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserLoginView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\ICameraAccess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ForgotPasswordView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CheckLogin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CellView\UserCellView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
@@ -55,5 +56,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Media\" />
     <Folder Include="$(MSBuildThisFileDirectory)Service\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModel\" />
+    <Folder Include="$(MSBuildThisFileDirectory)CellView\" />
   </ItemGroup>
 </Project>

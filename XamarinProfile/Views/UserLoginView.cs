@@ -77,13 +77,8 @@ namespace XamarinProfile
 				FontSize=17,
 				TextColor=Color.White,
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
-			};
-			btn_Login.Clicked+= (sender, e) => 
-			{
-
-				btn_Login.CommandParameter = 1;
-				btn_Login.Command= ViewModel.LoginUser;
-
+				CommandParameter=1,
+				Command=ViewModel.LoginUser
 			};
 
 			lbl_Registration = new ExtendedLabel
@@ -106,7 +101,7 @@ namespace XamarinProfile
 			lbl_Forgot = new ExtendedLabel
 			{
 				WidthRequest = Width,
-				Text="Forgot Password",
+				Text="Forgot Password ?",
 				HorizontalOptions = LayoutOptions.End,
 				TextColor=Colors.DarkGray.ToFormsColor(),
 				BackgroundColor=Color.Transparent,

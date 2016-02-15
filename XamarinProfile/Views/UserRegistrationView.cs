@@ -1,7 +1,6 @@
 ﻿using System;
 using Colors = XamarinProfile.Helpers.Color;
 using Xamarin.Forms;
-using Android.Graphics;
 
 namespace XamarinProfile
 {
@@ -22,19 +21,22 @@ namespace XamarinProfile
 		public int Height = App.ScreenHeight;
 		public int iClicks = 0;
 		public string ExpertsValue="";
+		public ActivityIndicator indicator;
 		#endregion
-
 		public UserViewModel ViewModel { get { return BindingContext as UserViewModel; } }
-
-
 		public UserRegistrationView ()
 		{
-//			if (ViewModel == null)
-//				ViewModel = new UserViewModel();
-//			BindingContext = ViewModel;
 
 			BindingContext = new UserViewModel(this.Navigation);
 
+			 indicator = new ActivityIndicator
+			{
+				Color = Colors.DarkGray.ToFormsColor(),
+				HorizontalOptions=LayoutOptions.Center,
+				VerticalOptions=LayoutOptions.Center,
+			};
+			//indicator.SetBinding (ActivityIndicator.IsRunningProperty, "IsLoading");
+			//indicator.SetBinding (ActivityIndicator.IsVisibleProperty, "IsLoading");
 			stack_CoverPage = new StackLayout
 			{
 				WidthRequest=Width,
@@ -244,15 +246,11 @@ namespace XamarinProfile
 				FontSize=17,
 				TextColor=Xamarin.Forms.Color.White,
 				BackgroundColor=Colors.DarkGray.ToFormsColor(),
+				//CommandParameter = 1,
+				Command= ViewModel.RegisterUser,
 
 			};
-			btn_Submit.Clicked+= (sender, e) => 
-			{
-				btn_Submit.CommandParameter = 1;
-				btn_Submit.Command= ViewModel.RegisterUser;
-				Navigation.PushModalAsync(new UserListView());
-				
-			};
+
 			stack_TopView = new StackLayout
 			{
 				HorizontalOptions = LayoutOptions.Fill,
@@ -446,7 +444,6 @@ namespace XamarinProfile
 			rltv_main.Children.Add(mainLayout, Constraint.Constant(0), Constraint.Constant(0),Constraint.Constant(Width),Constraint.Constant(Height));
 			rltv_main.Children.Add(image_bg, Constraint.Constant(0), Constraint.Constant(0),Constraint.Constant(Width),Constraint.Constant(Height));
 			rltv_main.Children.Add(stack_popup, Constraint.Constant(0), Constraint.Constant(Height),Constraint.Constant(Width),Constraint.Constant(Height));
-
 			this.Content = rltv_main;
 		}
 		protected override void OnAppearing()
@@ -481,7 +478,7 @@ namespace XamarinProfile
 				img_iOS.IsEnabled=false;
 				img_iOS.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
-			SetExpert ("1");
+			SetExpert ("1,");
 		}
 		void OnAndroidTapped(View view, object sender)
 		{
@@ -495,7 +492,7 @@ namespace XamarinProfile
 				img_Android.IsEnabled=false;
 				img_Android.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
-			SetExpert ("3");
+			SetExpert ("3,");
 		}
 		void OnFormsTapped(View view, object sender)
 		{
@@ -509,7 +506,7 @@ namespace XamarinProfile
 				img_Forms.IsEnabled=false;
 				img_Forms.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
-			SetExpert ("4");
+			SetExpert ("4,");
 		}
 		void OnInsightTapped(View view, object sender)
 		{
@@ -523,7 +520,7 @@ namespace XamarinProfile
 				img_Insights.IsEnabled=false;
 				img_Insights.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
-			SetExpert ("5");
+			SetExpert ("5,");
 		}
 		void OnTestCloudTapped(View view, object sender)
 		{
@@ -537,7 +534,7 @@ namespace XamarinProfile
 				img_Testcloud.IsEnabled=false;
 				img_Testcloud.BackgroundColor=Colors.Blue.ToFormsColor();	
 			}
-			SetExpert ("6");
+			SetExpert ("6,");
 		}
 		void OnCertifiedTapped(View view, object sender)
 		{
@@ -551,7 +548,7 @@ namespace XamarinProfile
 				img_Certified.IsEnabled=false;
 				img_Certified.BackgroundColor=Colors.Blue.ToFormsColor();
 			}
-			SetExpert ("2");
+			SetExpert ("2,");
 		}
 		void OnCameraTapped(View view, object sender)
 		{

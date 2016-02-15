@@ -7,10 +7,24 @@ namespace XamarinProfile
 {
 	public class User
 	{
-		
+
 	}
 
-
+	public class UserRegistration<T>
+	{
+		public UserRegistration()
+		{
+			PayloadData = new Payload<T>();
+		}
+		[JsonProperty("status")]
+		public string Status { get; set; }
+		[JsonProperty("statusCode")]
+		public int StatusCode { get; set; }
+		[JsonProperty("message")]
+		public string Message { get; set; }
+		[JsonProperty("payload")]
+		public Payload<T> PayloadData { get; set; }
+	}
 	public class UserRegistrationResponse
 	{
 		public string Status { get; set; }
@@ -30,34 +44,23 @@ namespace XamarinProfile
 	}
 	public class UserRegistrationRequest : BaseModel
 	{
+		[JsonProperty("name")]
 		public string name { get; set; }
+
+		[JsonProperty("email")]
 		public string email { get; set; }
+
+		[JsonProperty("location")]
 		public string location { get; set; }
+
+		[JsonProperty("image")]
 		public string image { get; set; }
+
+		[JsonProperty("experts")]
 		public string experts { get; set; }
+
+		[JsonProperty("password")]
 		public string password { get; set; }
 	}
 
-
-
-	public class CheckoutCountry : BaseModel
-	{
-		[PrimaryKey]
-		public override int ItemID
-		{
-			get
-			{
-				return base.ItemID;
-			}
-			set
-			{
-				base.ItemID = value;
-			}
-		}
-		public int id { get; set; }
-		public string abbr { get; set; }
-		public string name { get; set; }
-
-	}
 }
-
