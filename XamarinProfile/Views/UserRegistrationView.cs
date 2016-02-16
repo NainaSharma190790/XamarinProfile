@@ -450,7 +450,7 @@ namespace XamarinProfile
 		{
 			base.OnAppearing();
 			ViewModel.PropertyChanged += ViewModel_PropertyChanged;
-			ViewModel.GetCountriesCommand.Execute(null); //It should be below the above event
+			//ViewModel.GetCountriesCommand.Execute(null); //It should be below the above event
 		}
 		void SetExpert(string IdValue)
 		{

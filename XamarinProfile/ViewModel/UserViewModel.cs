@@ -24,10 +24,12 @@ namespace XamarinProfile
 			_navigation = navigation;
 			Setup();
 			UserRegInfo = new UserRegistrationPayload(); //{ first_name = "Mohd", last_name = "Riyaz", email = "test@test.com", mobileno = "0987654321", password = "test123#", city = "", address = "test road, test" };
+			_userDetails =  new ObservableCollection<UserRegistrationRequest>();
+			UserListInfo = new UserRegistrationRequest();
 			GetCountriesCommand.Execute(null);
-			GetAllUsers.Execute(null);
+			//GetAllUsers.Execute(null);
 		}
-	
+
 
 		public string imageString;
 		private UserRegistrationPayload _userRegInfo;
@@ -41,6 +43,18 @@ namespace XamarinProfile
 				OnPropertyChanged();
 			}
 		}
+		private UserRegistrationRequest _userListInfo;
+
+		public UserRegistrationRequest UserListInfo
+		{
+			get { return _userListInfo; }
+			set
+			{
+				_userListInfo = value;
+				OnPropertyChanged();
+			}
+		}
+
 		private ImageSource _imageTest;
 		public ImageSource ImageTest
 		{
@@ -131,6 +145,17 @@ namespace XamarinProfile
 		}
 
 
+		private ObservableCollection<UserRegistrationRequest> _userDetails;
+
+		public ObservableCollection<UserRegistrationRequest> UserDetails
+		{
+			get { return _userDetails; }
+			set
+			{
+				_userDetails = value;
+				OnPropertyChanged("UserDetails");
+			}
+		}
 		public ICommand GetCountriesCommand
 		{
 			get
@@ -156,89 +181,106 @@ namespace XamarinProfile
 
 				return new Command (async (args) => {
 					IsLoading = true;
+					int count;
 					await ServiceHandler.PostGetData<UserRegistration<UserRegistrationRequest>, string> (ServiceHandler.Constant.AllUser, HttpMethod.Get, null).ContinueWith (t =>
 						{
+							try
+							{
+							if (!t.IsFaulted && t.Result != null)
+							{
+								UserDetails.Clear();
+								var items = t.Result.PayloadData.GetUser;
+								foreach (var item in items)
+								{
+									item.image="http://research.demo.netsmartz.us/webservices/images/"+item.image;
+									UserListInfo.experts=item.experts;
+									count=Convert.ToInt32(item.location);
+									item.location=PickerItems[count].name;
+									UserDetails.Add(item);
+								}
+								IsLoading = false;
+							}
+							}
+							catch(Exception ex)
+							{
+								
+							}
 
-						if (!t.IsFaulted && t.Result != null)
-						{
-							//GetUsers = t.Result.PayloadData.ToList ();
-							IsLoading = false;	
-						}
-					});
+						});
 				});
 			}
 		}
 
-		public ICommand RegisterUser
+		public ICommand RegisterUser 
 		{
-			get
+			get 
 			{
-				return new Command (async (args) => 
-					{	
-						UserRegInfo.experts=ExpertValue;
-						UserRegInfo.location=SelectedIndex.ToString();
-						UserRegInfo.image=imageString;
-						#region Service to register a user
-						//	IsLoading=true;
-//						await ServiceHandler.PostGetData<UserRegistrationResponse, UserRegistrationRequest>(ServiceHandler.Constant.RegisterUser, HttpMethod.Post, UserRegInfo).ContinueWith(t =>
-//							{
-//								try
-//								{
-//									if (!t.IsFaulted && t.Result != null)
-//									{
-//										if (t.Result.StatusCode == "1") 
-//										{
-//											//IsLoading=false;
-//											Console.WriteLine ("Success");
-//
-//										} 
-//										else
-//										{
-//											Console.WriteLine ("Error");
-//										}
-//									}
-//								} 
-//								catch (Exception ex)
-//								{
-//
-//								}
-//							});
-						#endregion	
-					});
+				return new Command (async (args) => {	
+					UserRegInfo.experts = ExpertValue;
+					UserRegInfo.location = SelectedIndex.ToString ();
+					UserRegInfo.image = imageString;
+					#region Service to register a user
+					IsLoading = true;
+
+						await ServiceHandler.PostGetData<UserRegistrationResponse, UserRegistrationPayload> (ServiceHandler.Constant.RegisterUser, HttpMethod.Post, UserRegInfo).ContinueWith (t =>
+							{								
+							if (!t.IsFaulted && t.Result != null)
+							{
+								if (t.Result.StatusCode == "1") {
+									IsLoading = false;
+									Console.WriteLine ("Success");
+									_navigation.PushModalAsync (new UserListView ());
+						
+								} else {
+									Console.WriteLine ("Error");
+								}
+							}
+						
+						
+						},
+							TaskScheduler.FromCurrentSynchronizationContext ());
+					
+					#endregion	
+				});
 
 			}
 		}
+
+
 		public ICommand LoginUser {
 			get {
 
-			return new Command (async (args) => {
-//					IsLoading = true;
-//					try
-//					{
-//						await ServiceHandler.PostGetData<UserRegistrationResponse, CheckLogin> (ServiceHandler.Constant.Login, HttpMethod.Post, CheckLogin).ContinueWith (t => {
-//
-//							if (!t.IsFaulted && t.Result != null) {
-//								if (t.Result.StatusCode == "1") {
-//									IsLoading = false;
-//									Console.WriteLine ("Success");
-//									_navigation.PopModalAsync(new UserRegistrationView ());
-//
-//								} else {
-//									Console.WriteLine ("Error");
-//								}
-//							}
-//
-//
-//						},
-//							TaskScheduler.FromCurrentSynchronizationContext ());
-//					}
-//					catch (Exception ex) 
-//					{
-//						Console.WriteLine (ex.Message);
-//					}
+				return new Command (async (args) => {
+					IsLoading = true;
+					try
+					{
+						await ServiceHandler.PostGetData<UserRegistrationResponse, CheckLogin> (ServiceHandler.Constant.Login, HttpMethod.Post, CheckLogin).ContinueWith (t =>
+							{
+
+								if (!t.IsFaulted && t.Result != null) {
+									if (t.Result.StatusCode == "1") {
+										IsLoading = false;
+										Console.WriteLine ("Success");
+										_navigation.PushAsync(new UserRegistrationView ());
+
+									} else {
+										Console.WriteLine ("Error");
+									}
+								}
+
+
+							},
+							TaskScheduler.FromCurrentSynchronizationContext ());
+					}
+					catch (Exception ex) 
+					{
+						Console.WriteLine (ex.Message);
+					}
 				});
 			}
 		}
+
+
 
 		#region Functionality of profile picture
 
@@ -257,7 +299,7 @@ namespace XamarinProfile
 		/// </summary>
 		private ImageSource _imageSource="CircleImage.png";
 
-	
+
 		/// <summary>
 		/// The take picture command.
 		/// </summary>
@@ -431,15 +473,15 @@ namespace XamarinProfile
 
 
 		#endregion
-//		public System.Drawing.Image Base64ToImage()   
-//		{  
-//			byte[] imageBytes = Convert.FromBase64String(imageString);  
-//			MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);  
-//			ms.Write(imageBytes, 0, imageBytes.Length);  
-//			System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);  
-//			return image;  
-//		} 
-//
-//		public Image test = (Image)Base64ToImage();
+		//		public System.Drawing.Image Base64ToImage()   
+		//		{  
+		//			byte[] imageBytes = Convert.FromBase64String(imageString);  
+		//			MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);  
+		//			ms.Write(imageBytes, 0, imageBytes.Length);  
+		//			System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);  
+		//			return image;  
+		//		} 
+		//
+		//		public Image test = (Image)Base64ToImage();
 	}
 }

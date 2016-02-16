@@ -17,7 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataBase\SQLite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataBase\XamarinProfileDataBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\BaseModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetailsModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\IBusinessBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\ServiceHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
@@ -36,9 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\UserViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\IProgressView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\BindablePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)test.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\CountryPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserLoginView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\ICameraAccess.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ForgotPasswordView.cs" />

@@ -5,26 +5,6 @@ using SQLite;
 
 namespace XamarinProfile
 {
-	public class User
-	{
-
-	}
-
-	public class UserRegistration<T>
-	{
-		public UserRegistration()
-		{
-			PayloadData = new Payload<T>();
-		}
-		[JsonProperty("status")]
-		public string Status { get; set; }
-		[JsonProperty("statusCode")]
-		public int StatusCode { get; set; }
-		[JsonProperty("message")]
-		public string Message { get; set; }
-		[JsonProperty("payload")]
-		public Payload<T> PayloadData { get; set; }
-	}
 	public class UserRegistrationResponse
 	{
 		public string Status { get; set; }
@@ -42,8 +22,57 @@ namespace XamarinProfile
 		public string password { get; set; }
 
 	}
+
+	public class Payload<T>
+	{
+		public Payload()
+		{
+			Countries = new ObservableCollection<T>();
+			GetUser = new ObservableCollection<T>();
+		}
+		[JsonProperty("countries")]
+		public ObservableCollection<T> Countries { get; set; }
+		[JsonProperty("allUsers")]
+		public ObservableCollection<T> GetUser { get; set; }
+	}
+	public class CountriesResponse<T>
+	{
+		public CountriesResponse()
+		{
+			PayloadData = new Payload<T>();
+		}
+		[JsonProperty("status")]
+		public string Status { get; set; }
+		[JsonProperty("statusCode")]
+		public int StatusCode { get; set; }
+		[JsonProperty("message")]
+		public string Message { get; set; }
+		[JsonProperty("payload")]
+		public Payload<T> PayloadData { get; set; }
+	}
+
+	public class UserRegistration<T>
+	{
+		public UserRegistration()
+		{
+			PayloadData = new Payload<T>();
+		}
+		[JsonProperty("status")]
+		public string Status { get; set; }
+		[JsonProperty("statusCode")]
+		public int StatusCode { get; set; }
+		[JsonProperty("message")]
+		public string Message { get; set; }
+		[JsonProperty("payload")]
+		public Payload<T> PayloadData { get; set; }
+	}
+
+
 	public class UserRegistrationRequest : BaseModel
 	{
+		[JsonProperty("id")]
+		public string Id { get; set; }
+
 		[JsonProperty("name")]
 		public string name { get; set; }
 
@@ -62,5 +91,18 @@ namespace XamarinProfile
 		[JsonProperty("password")]
 		public string password { get; set; }
 	}
+	public class CountryPicker : BaseModel
+	{
+		[JsonProperty("id")]
+		public int id { get; set; }
+
+		[JsonProperty("name")]
+		public string name { get; set; }
+
+		[JsonProperty("abbr")]
+		public string abbr { get; set; }
+
+	}
+
 
 }

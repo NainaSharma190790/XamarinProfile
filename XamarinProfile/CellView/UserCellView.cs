@@ -8,7 +8,7 @@ namespace XamarinProfile
 	public class UserCellView : ViewCell
 	{
 		public string source="";
-
+		public Label expert;
 		public UserCellView()
 		{
 			View = CreateCellView();//CreateCell(null);
@@ -18,19 +18,20 @@ namespace XamarinProfile
 		{
 
 			var nameLabel = new Label();
-			nameLabel.SetBinding(Label.TextProperty, "Name");
+			nameLabel.SetBinding(Label.TextProperty, "name");
 			nameLabel.TextColor=Colors.DarkGray.ToFormsColor();
-			nameLabel.SetBinding(Label.TextProperty,"UserRegInfo.name");
 
 			var locationLabel = new Label();
-			locationLabel.SetBinding(Label.TextProperty,"Location");
+			locationLabel.SetBinding(Label.TextProperty,"location");
 			locationLabel.TextColor=Colors.DarkGray.ToFormsColor();
-			nameLabel.SetBinding(Label.TextProperty,"UserRegInfo.location");
 
+			expert = new Label();
+			expert.SetBinding(Label.TextProperty, "expert");
 
 			var profileImage = new CircleImage();
 			profileImage.Aspect=Aspect.AspectFill;
-			profileImage.SetBinding(CircleImage.SourceProperty, "ImageSource", BindingMode.Default);
+			//profileImage.Source = "img1.png";
+			profileImage.SetBinding(CircleImage.SourceProperty, "image", BindingMode.Default);
 
 
 			var retView = new StackLayout 
@@ -62,8 +63,9 @@ namespace XamarinProfile
 				ColumnSpacing = 3,
 				RowSpacing = 3,	
 			};
-			var p = ((UserRegistrationRequest)BindingContext);
-			var myString=p.experts;
+
+			//var p =  new UserRegistrationRequest();
+			var myString=expert.Text;
 			string[] stringArray = myString.Split (",".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
 			int i = 0;
 			int j = 0;

@@ -10,14 +10,12 @@ namespace XamarinProfile
 		public int Height = App.ScreenHeight;
 		public int Width = App.ScreenWidth;
 		public UserViewModel ViewModel { get { return BindingContext as UserViewModel; } }
-		public ListView list = null;
-		public static List<UserRegistrationRequest> serverList = new List<UserRegistrationRequest>();
+		public ListView list =  new ListView();
 
 		public UserListView ()
 		{
 
 			BindingContext = new UserViewModel(this.Navigation);
-			ViewModel.GetAllUsers.Execute(null);
 
 			list = new ListView()
 			{ 
@@ -27,24 +25,19 @@ namespace XamarinProfile
 				SeparatorColor=Colors.Green.ToFormsColor(),
 				SeparatorVisibility =SeparatorVisibility.Default,
 			};
+			string my=ViewModel.UserListInfo.experts;
+			UserCellView xy= new UserCellView ();
+			list.ItemsSource = ViewModel.UserDetails;
 			list.ItemTemplate = new DataTemplate(typeof(UserCellView));
-			list.ItemsSource = serverList;
-			//list.ItemSelected += list_ItemSelected;
-			list.SelectedItem = null;
-		}
 
+			this.Content = list;
+
+		}
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
-			try
-			{
-				//list.ItemsSource = ViewModel.GetAllUsers;
-				//ViewModel.PreviousPage = this;
-			}
-			catch (Exception ex)
-			{
-
-			}
+			list.ItemsSource = ViewModel.UserDetails;
 		}
+
 	}
 }
