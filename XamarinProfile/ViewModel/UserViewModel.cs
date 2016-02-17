@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.IO;
+using Plugin.Toasts;
 
 namespace XamarinProfile
 {
@@ -231,8 +232,11 @@ namespace XamarinProfile
 									Console.WriteLine ("Success");
 									_navigation.PushModalAsync (new UserListView ());
 						
-								} else {
+								} else 
+								{
 									Console.WriteLine ("Error");
+									ShowToast(ToastNotificationType.Error, "Not item found.");
+
 								}
 							}
 						
@@ -265,6 +269,8 @@ namespace XamarinProfile
 
 									} else {
 										Console.WriteLine ("Error");
+										ShowToast(ToastNotificationType.Error, "Not item found.");
+
 									}
 								}
 
@@ -473,15 +479,32 @@ namespace XamarinProfile
 
 
 		#endregion
-		//		public System.Drawing.Image Base64ToImage()   
-		//		{  
-		//			byte[] imageBytes = Convert.FromBase64String(imageString);  
-		//			MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);  
-		//			ms.Write(imageBytes, 0, imageBytes.Length);  
-		//			System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);  
-		//			return image;  
-		//		} 
-		//
-		//		public Image test = (Image)Base64ToImage();
+		private async void ShowToast(ToastNotificationType type, string message)
+		{
+			try
+			{
+				var notificator = DependencyService.Get<IToastNotificator>();
+
+				bool tapped = await notificator.Notify(type, "Fill Your Detalis", message, TimeSpan.FromSeconds(2));
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("TOAST Error:", ex);
+			}
+
+		}
+		private async void ShowRequiredToast(ToastNotificationType type, string message)
+		{
+			try
+			{
+				var notificator = DependencyService.Get<IToastNotificator>();
+				bool tapped = await notificator.Notify(type, "Fill Your Detalis", "Fill your " + message, TimeSpan.FromSeconds(2));
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("TOAST Error:", ex);
+			}
+
+		}
 	}
 }
